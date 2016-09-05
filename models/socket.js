@@ -11,7 +11,7 @@ exports.init = (app) => {
 
     io.on('connection', (socket) => {
         users += 1
-        console.log(users);
+        console.log(socket.handshake.query.id + " connected");
         io.emit('users', users)
 
         socket.on('disconnect', () => {
