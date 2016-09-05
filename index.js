@@ -5,4 +5,4 @@ app.get("/", (req, res) => {
     res.send("Super cool app")
 });
 
-http.createServer(app).listen(80)
+http.createServer(app).listen(process.env.PORT || 5000)
