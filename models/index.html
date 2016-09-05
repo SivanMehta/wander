@@ -2,20 +2,30 @@
 <html>
     <head>
         <title>Wander</title>
+        <!-- Ink and JQuery-->
+        <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js"   integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8="   crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="http://fastly.ink.sapo.pt/3.1.10/css/ink.css">
+        <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/ink-all.js"></script> 
     </head>
     <body>
-        <p>
-            <button id = 'tbutton'>Tourist</button>
-            <button id = 'gbutton'>Guide</button>
-        </p>
+        <div class = "ink-grid">
+            <div class = 'button-group'>
+                <button class = 'ink-button' id = 'tbutton'>Tourist</button>
+                <button class = 'ink-button' id = 'gbutton'>Guide</button>
+            </div>
 
-        <p>
-            Active Users: <span id = "count"></span>
-        </p>
+            <p>
+                Active Users: <span id = "count"></span>
+            </p>
+        </div>
+
+        <!-- end content -->
 
         <script src="/socket.io/socket.io.js"></script>
+        <script src="/app.js"></script>
         <script>
-            var socket = io();
+            var id = parseInt(Math.random() * 1000)
+            var socket = io('', {query: 'id=' +id});
 
             socket.on('users', (users) => {
                 count.innerHTML = users
