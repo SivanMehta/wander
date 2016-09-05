@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Wander</title>
+    </head>
+    <body>
+        <p>
+            <button id = 'tbutton'>Tourist</button>
+            <button id = 'gbutton'>Guide</button>
+        </p>
+
+        <p>
+            Active Users: <span id = "count"></span>
+        </p>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+
+            socket.on('users', (users) => {
+                count.innerHTML = users
+            })
+        </script>
+    </body>
+</html>
