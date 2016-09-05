@@ -5,4 +5,4 @@ app.get("/", (req, res) => {
     res.send("Super cool app")
 });
 
-http.createServer(app).listen(8080)
+http.createServer(app).listen(80)

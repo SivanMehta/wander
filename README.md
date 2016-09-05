@@ -12,3 +12,11 @@ We are thinking essentially a modified version of an Uber experience. We boiled 
   - Time Estimate
 - Local Tour Guides can evaluate the request and either accept or reject
 - Ability to rate / comment on tour once it is over.
+
+## For Now:
+
+Change your `/etc/hosts` file to include this line because someone else owns the domain we want:
+
+```
+127.0.0.1   wander.com
+```
