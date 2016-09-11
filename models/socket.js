@@ -20,7 +20,6 @@ exports.init = (app) => {
             tourist: (callback) => { countUsers('tourist', callback) },
             guide: (callback) => { countUsers('guide', callback) }
         }, (err, results) => {
-            console.log(results)
             io.emit('users', results)
         })
     }
@@ -39,8 +38,6 @@ exports.init = (app) => {
         socket.lat = socket.handshake.query.lat
         socket.long = socket.handshake.query.long
 
-        console.log('User at: (' + socket.lat + ', ' + socket.long + ') connected')
-
         // 'persist the user'
         users[socket.role][socket.id] = {
             lat: socket.lat,
@@ -51,7 +48,6 @@ exports.init = (app) => {
         socket.on('disconnect', () => {
             delete users[socket.role][socket.id];
             emitUserInfo()
-            console.log('User at: (' + socket.lat + ', ' + socket.long + ') disconnected')
         })
     })
 
