@@ -7,11 +7,12 @@ function connect(role) {
         socket = io('', {query: 'role='+role + 
                                 '&lat='+position.coords.latitude +
                                 '&long='+position.coords.longitude});
+
         socket.on('users', (users) => {
-            guides.innerHTML = "Connected Guides: " + users.guide
-            tourists.innerHTML = "Connected Tourists: " + users.tourist
+            guides.innerHTML = "Connected Guides: " + JSON.stringify(users.guide)
+            tourists.innerHTML = "Connected Tourists: " + JSON.stringify(users.tourist)
         })
-        
+
         document.getElementById('heading').remove();
     });
 }
@@ -22,12 +23,6 @@ window.onbeforeunload = function confirmExit() {
     return false;
 }
 
-$('#tbutton').click(() => {
-    connect('tourist');
-    console.log('connected as tourist')
-})
+$('#tbutton').click(() => { connect('tourist') })
 
-$('#gbutton').click(() => {
-    connect('guide');
-    console.log('connected as guide')
-})
+$('#gbutton').click(() => { connect('guide') })
