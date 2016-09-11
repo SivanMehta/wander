@@ -1,10 +1,12 @@
-// this user 'database' will eventually have to be persisted somewhere, as in-memory is not very reliable
-var users = {
-    tourist: 0,
-    guide: 0
-}
+var async = require('async');
 
 exports.init = (app) => {
+    // this user 'database' will eventually have to be persisted somewhere, as in-memory is not very reliable
+    var users = {
+        tourist: {},
+        guide: {},
+    }
+
     app.get("/", (req, res) => {
         res.sendFile(__dirname + "/index.html")
     })
@@ -13,19 +15,43 @@ exports.init = (app) => {
     var http = require('http').Server(app)
     var io = require('socket.io')(http)
 
+    emitUserInfo = () => {
+        async.parallel({
+            tourist: (callback) => { countUsers('tourist', callback) },
+            guide: (callback) => { countUsers('guide', callback) }
+        }, (err, results) => {
+            console.log(results)
+            io.emit('users', results)
+        })
+    }
+
+    countUsers = (userType, callback) => {
+        async.map(users[userType], (user, next) => {
+            // do nothing yet
+            next(null, user)
+        }, (err, result) => {
+            callback(null, result)
+        })
+    }
+
     io.on('connection', (socket) => {
         socket.role = socket.handshake.query.role
+        socket.lat = socket.handshake.query.lat
+        socket.long = socket.handshake.query.long
 
-        console.log(socket.handshake.query.lat)
-        console.log(socket.handshake.query.long)
+        console.log('User at: (' + socket.lat + ', ' + socket.long + ') connected')
 
         // 'persist the user'
-        users[socket.role] += 1
-        io.emit('users', users)
+        users[socket.role][socket.id] = {
+            lat: socket.lat,
+            long: socket.long
+        }
+        emitUserInfo()
 
         socket.on('disconnect', () => {
-            users[socket.role] -= 1
-            io.emit('users', users)
+            delete users[socket.role][socket.id];
+            emitUserInfo()
+            console.log('User at: (' + socket.lat + ', ' + socket.long + ') disconnected')
         })
     })
 
