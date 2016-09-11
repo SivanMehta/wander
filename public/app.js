@@ -8,19 +8,13 @@ function connect(role) {
                                 '&lat='+position.coords.latitude +
                                 '&long='+position.coords.longitude});
 
-        socket.on('users', (users) => {
-            guides.innerHTML = "Connected Guides: " + JSON.stringify(users.guide)
-            tourists.innerHTML = "Connected Tourists: " + JSON.stringify(users.tourist)
+        socket.on('users', (data) => {
+            guides.innerHTML = `Connected Guides: ${ JSON.stringify(data.guides) }`
+            tourists.innerHTML = `Connected Tourists: ${ JSON.stringify(data.tourists) }`
         })
 
         document.getElementById('heading').remove();
     });
-}
-
-window.onbeforeunload = function confirmExit() {
-    alert("confirm exit is being called");
-    socket.disconnect();
-    return false;
 }
 
 $('#tbutton').click(() => { connect('tourist') })
