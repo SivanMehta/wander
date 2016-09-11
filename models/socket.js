@@ -17,8 +17,8 @@ exports.init = (app) => {
 
     emitUserInfo = () => {
         async.parallel({
-            tourist: (callback) => { countUsers('tourist', callback) },
-            guide: (callback) => { countUsers('guide', callback) }
+            tourists: (callback) => { countUsers('tourist', callback) },
+            guides: (callback) => { countUsers('guide', callback) }
         }, (err, results) => {
             io.emit('users', results)
         })
@@ -26,7 +26,6 @@ exports.init = (app) => {
 
     countUsers = (userType, callback) => {
         async.map(users[userType], (user, next) => {
-            // do nothing yet
             next(null, user)
         }, (err, result) => {
             callback(null, result)
