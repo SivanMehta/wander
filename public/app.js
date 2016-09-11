@@ -1,13 +1,19 @@
 var socket;
 
 function connect(role) {
-    document.getElementById('heading').remove();
+    heading.innerHTML = "<center><span class='glyphicon glyphicon-repeat' aria-hidden='true'></span></center>";
 
-    socket = io('', {query: 'role=' + role});
-    socket.on('users', (users) => {
-        guides.innerHTML = "Connected Guides: " + users.guide
-        tourists.innerHTML = "Connected Tourists: " + users.tourist
-    })
+    navigator.geolocation.getCurrentPosition(function(position) {
+        socket = io('', {query: 'role='+role + 
+                                '&lat='+position.coords.latitude +
+                                '&long='+position.coords.longitude});
+        socket.on('users', (users) => {
+            guides.innerHTML = "Connected Guides: " + users.guide
+            tourists.innerHTML = "Connected Tourists: " + users.tourist
+        })
+        
+        document.getElementById('heading').remove();
+    });
 }
 
 window.onbeforeunload = function confirmExit() {
