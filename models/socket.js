@@ -1,4 +1,7 @@
-var users = 0
+var users = {
+    tourist: 0,
+    guide: 0
+}
 
 exports.init = (app) => {
     app.get("/", (req, res) => {
@@ -10,12 +13,13 @@ exports.init = (app) => {
     var io = require('socket.io')(http);
 
     io.on('connection', (socket) => {
-        users += 1
-        console.log(socket.handshake.query.id + " connected");
+        socket.role = socket.handshake.query.role;
+
+        users[socket.role] += 1;
         io.emit('users', users)
 
         socket.on('disconnect', () => {
-            users -= 1
+            users[socket.role] -= 1
             io.emit('users', users)
         })
     })

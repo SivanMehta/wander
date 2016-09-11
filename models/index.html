@@ -9,27 +9,21 @@
     </head>
     <body>
         <div class = "ink-grid">
-            <div class = 'button-group'>
-                <button class = 'ink-button' id = 'tbutton'>Tourist</button>
-                <button class = 'ink-button' id = 'gbutton'>Guide</button>
+            <div id="heading">
+                <h1>Connect As: </h1>
+                <div class="button-group">
+                    <button class="ink-button" id = "tbutton">Tourist</button>
+                    <button class="ink-button" id = "gbutton">Guide</button>
+                </div>
             </div>
 
-            <p>
-                Active Users: <span id = "count"></span>
-            </p>
+            <p id = "guides"></p>
+            <p id = "tourists"></p>
         </div>
 
         <!-- end content -->
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="/app.js"></script>
-        <script>
-            var id = parseInt(Math.random() * 1000)
-            var socket = io('', {query: 'id=' +id});
-
-            socket.on('users', (users) => {
-                count.innerHTML = users
-            })
-        </script>
     </body>
 </html>
