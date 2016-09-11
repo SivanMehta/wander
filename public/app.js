@@ -8,7 +8,7 @@ function connect(role) {
                                 '&lat='+position.coords.latitude +
                                 '&long='+position.coords.longitude});
 
-        socket.on('users', (data) => {
+        socket.on('users', function(data) {
             guides.innerHTML = `Connected Guides: ${ JSON.stringify(data.guides) }`
             tourists.innerHTML = `Connected Tourists: ${ JSON.stringify(data.tourists) }`
         })
@@ -17,6 +17,10 @@ function connect(role) {
     });
 }
 
-$('#tbutton').click(() => { connect('tourist') })
+$('#tbutton').on('click touchstart', function () {
+    connect('tourist')
+})
 
-$('#gbutton').click(() => { connect('guide') })
+$('#gbutton').on('click touchstart', function () {
+    connect('guide')
+})
