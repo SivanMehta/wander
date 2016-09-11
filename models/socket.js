@@ -1,3 +1,4 @@
+// this user 'database' will eventually have to be persisted somewhere, as in-memory is not very reliable
 var users = {
     tourist: 0,
     guide: 0
@@ -9,13 +10,17 @@ exports.init = (app) => {
     })
 
     const PORT = process.env.PORT || 5000
-    var http = require('http').Server(app);
-    var io = require('socket.io')(http);
+    var http = require('http').Server(app)
+    var io = require('socket.io')(http)
 
     io.on('connection', (socket) => {
-        socket.role = socket.handshake.query.role;
+        socket.role = socket.handshake.query.role
 
-        users[socket.role] += 1;
+        console.log(socket.handshake.query.lat)
+        console.log(socket.handshake.query.long)
+
+        // 'persist the user'
+        users[socket.role] += 1
         io.emit('users', users)
 
         socket.on('disconnect', () => {
