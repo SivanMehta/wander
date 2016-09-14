@@ -7,31 +7,29 @@ var geoOptions = {
 };
 
 // Get User Lat/ Lon
-function successGetPos(p){
+function successGetPos(p) {
 
 	lat = p.coords.latitude;
 	lon = p.coords.longitude;
-	console.log("Lat: ", lat);
-	console.log("Longitude: " + lon);
 	// Display Map with marker
 	displayMap()
 }
 
 // In case, geolocation is not enabled in browser
-function failGetPos(error){
-	console.log("Error: "+error.code);
+function failGetPos(error) {
+	console.log("Error: " + error.stack);
 }
 
 // Checks for geolocation and returns user coords
-function getCurrentCoords(){
+function getCurrentCoords() {
 	// Get User Coordinates
-	if(navigator.geolocation){
+	if(navigator.geolocation) {
 		success = navigator.geolocation.getCurrentPosition(successGetPos, failGetPos, geoOptions);
 	}
 }
 
 // Display Map with marker
-function displayMap(){
+function displayMap() {
 	// Create Map
 	var myLatlng = new google.maps.LatLng(lat,lon);
 	var mapOptions = {
@@ -52,8 +50,8 @@ function displayMap(){
 	// Scaled down image to 10x10
 	var img = '../img/tourGuideMarker.png';
 	var tourists = [
-		['CMU', 40.443466, -79.943457], 
-		['UPitt', 40.444328, -79.953155], 
+		['CMU', 40.443466, -79.943457],
+		['UPitt', 40.444328, -79.953155],
 		['Girasole Walnut St', 40.451195, -79.934610]
 	];
 	var interests = ["Oakland Sightseeing", "Cathedral of Learning and Restaurants", "Shadyside Shopping and Ice Cream"];
@@ -62,7 +60,7 @@ function displayMap(){
 	// Create tourist markers
 	// InfoWindow: Only one open at one time
 	var infowindow = new google.maps.InfoWindow();
-	for (var i=0; i<tourists.length; i++){		
+	for (var i = 0; i < tourists.length; i++) {
 		var t = tourists[i];
 		// InfoWindow Content for tourist
 		var contentString = "<p> Pickup: "+t[0]+"<br>"+
@@ -76,27 +74,23 @@ function displayMap(){
 			map: map,
 			infowindow: infowindow,
 			cs: contentString
-			// icon: image,
-			// shape: shape
 		});
-	    google.maps.event.addListener(touristMarker, 'click', function() {
+    google.maps.event.addListener(touristMarker, 'click', function() {
 			// Close other infoWindows
-	    	this.infowindow.close();
-	    	// Set new infoWindow
-	    	this.infowindow.setContent(this.cs);
-	    	this.infowindow.open(map, this);	
-	    });
+    	this.infowindow.close();
+    	// Set new infoWindow
+    	this.infowindow.setContent(this.cs);
+    	this.infowindow.open(map, this);
+    });
 	};
+
+	$('#map').css('position', 'static');
 }
 
 // Init Map Callback to display map
-function initMap(){
-
+function initMap() {
 	// Set User Coordinates
 	getCurrentCoords();
 	// Display Null Map even before Coords async call sets coord values
 	displayMap();
-
 }
-
-
