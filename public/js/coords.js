@@ -6,6 +6,7 @@ var geoOptions = {
 	timeout: 10000
 };
 
+// Get User Lat/ Lon
 function successGetPos(p){
 
 	lat = p.coords.latitude;
@@ -16,10 +17,12 @@ function successGetPos(p){
 	displayMap()
 }
 
+// In case, geolocation is not enabled in browser
 function failGetPos(error){
 	console.log("Error: "+error.code);
 }
 
+// Checks for geolocation and returns user coords
 function getCurrentCoords(){
 	// Get User Coordinates
 	if(navigator.geolocation){
@@ -65,13 +68,17 @@ function displayMap(){
 	};
 	// -- END
 
-	var beachMarker = new google.maps.Marker({
-		position: {lat: 40.443466, lng: -79.943457},
-		map: map,
-		icon: img
-		// icon: image,
-		// shape: shape
-	});
+	var tourists = [{loc: CMU,lat: 40.443466, lng: -79.943457}, {loc: UPitt, lat: 40.444328, lng: -79.953155}, {loc: Girasole Walnut St, lat: 40.451195, lng: -79.934610}]
+	for t in tourists{
+		var touristMarker = new google.maps.Marker({
+			position: {lat: t.lat, lng: t.lon},
+			map: map,
+			icon: img,
+			title: t.loc
+			// icon: image,
+			// shape: shape
+		});
+	}
 }
 
 // Init Map Callback to display map
