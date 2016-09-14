@@ -1,15 +1,13 @@
 <% layout('layout') -%>
 
-<div id="heading">
-    <h1>Connect As: </h1>
-    <div class="btn-group" role = "group">
-        <button type="button" class = "btn btn-default" id = "tbutton">Tourist</button>
-        <button type="button" class = "btn btn-default" id = "gbutton">Guide</button>
+<div id="app">
+    <div id = "welcome">
+      <h1>Connect As: </h1>
+      <div class="btn-group" role = "group">
+          <button type="button" class = "btn btn-default" id = "tbutton">Tourist</button>
+          <button type="button" class = "btn btn-default" id = "gbutton">Guide</button>
+      </div>
     </div>
+
+    <div id="map"></div>
 </div>
-
-<p id = "guides"></p>
-<p id = "tourists"></p>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/app.js"></script>

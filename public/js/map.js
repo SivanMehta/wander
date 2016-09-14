@@ -29,24 +29,23 @@ function getCurrentCoords() {
 }
 
 // Display Map with marker
-function displayMap() {
+function displayMap(data) {
+	var lat = 40.446
+	var long = -80.051
 	// Create Map
-	var myLatlng = new google.maps.LatLng(lat,lon);
+	var myLatlng = new google.maps.LatLng(lat,long);
 	var mapOptions = {
 	  zoom: 15,
 	  center: myLatlng
 	}
 	var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
 	// Display Tour Guide Marker on Map
 	var tourGuideMarker = new google.maps.Marker({
 	    position: myLatlng,
 	    title: "Current Location",
 	    map: map,
 	    clickable: true
-    	// draggable: true
 	});
-
 	// Scaled down image to 10x10
 	var img = '../img/tourGuideMarker.png';
 	var tourists = [
@@ -59,38 +58,31 @@ function displayMap() {
 
 	// Create tourist markers
 	// InfoWindow: Only one open at one time
-	var infowindow = new google.maps.InfoWindow();
-	for (var i = 0; i < tourists.length; i++) {
-		var t = tourists[i];
-		// InfoWindow Content for tourist
-		var contentString = "<p> Pickup: "+t[0]+"<br>"+
-							"Interest: "+interests[i]+"<br>"+
-							"Duration: "+durations[i] + "</p>";
-		// Create Tourist Marker
-		var touristMarker = new google.maps.Marker({
-			position: {lat: t[1], lng: t[2]},
-			icon: img,
-			title: t[0],
-			map: map,
-			infowindow: infowindow,
-			cs: contentString
-		});
-    google.maps.event.addListener(touristMarker, 'click', function() {
-			// Close other infoWindows
-    	this.infowindow.close();
-    	// Set new infoWindow
-    	this.infowindow.setContent(this.cs);
-    	this.infowindow.open(map, this);
-    });
-	};
+	var infowindow = new google.maps.InfoWindow()
+	for(var i = 0; i < data.tourists.length; i++) {
+		const contentString = "<p>Tourist</p>";
+		const coords = {
+			lat: parseFloat(data.tourists[i].lat),
+			lng: parseFloat(data.tourists[i].lng)
+		}
 
-	$('#map').css('position', 'static');
+		var touristMarker = new google.maps.Marker({
+			position: coords,
+			map: map,
+			cs: contentString,
+			clickable: true,
+			icon: img
+		})
+		// when you click on marker, show tourist data
+		google.maps.event.addListener(touristMarker, 'click', function() {
+			infowindow.close()
+			infowindow.setContent(this.cs)
+    	infowindow.open(map, this)
+		})
+	}
 }
 
 // Init Map Callback to display map
-function initMap() {
-	// Set User Coordinates
-	getCurrentCoords();
-	// Display Null Map even before Coords async call sets coord values
-	displayMap();
+function initMap(data) {
+			displayMap(data);
 }
