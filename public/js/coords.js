@@ -32,6 +32,7 @@ function getCurrentCoords(){
 
 // Display Map with marker
 function displayMap(){
+	// Create Map
 	var myLatlng = new google.maps.LatLng(lat,lon);
 	var mapOptions = {
 	  zoom: 15,
@@ -39,46 +40,53 @@ function displayMap(){
 	}
 	var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-	// Display Marker on Map
-	var marker = new google.maps.Marker({
+	// Display Tour Guide Marker on Map
+	var tourGuideMarker = new google.maps.Marker({
 	    position: myLatlng,
 	    title: "Current Location",
 	    map: map,
-	    clickable: true,
-    	draggable: true
+	    clickable: true
+    	// draggable: true
 	});
 
-	// Display Markers for Guide
 	// Scaled down image to 10x10
 	var img = '../img/tourGuideMarker.png';
+	var tourists = [
+		['CMU', 40.443466, -79.943457], 
+		['UPitt', 40.444328, -79.953155], 
+		['Girasole Walnut St', 40.451195, -79.934610]
+	];
+	var interests = ["Oakland Sightseeing", "Cathedral of Learning and Restaurants", "Shadyside Shopping and Ice Cream"];
+	var durations = ["2 hours", "2 hours", "3 hours"];
 
-	// NOT WORKING CURRENTLY --
-	var image = {
-		url: '../img/tourGuideMarker.png',
-		// This marker is 20 pixels wide by 32 pixels high.
-		size: new google.maps.Size(20, 32),
-		// The origin for this image is (0, 0).
-		origin: new google.maps.Point(0, 0),
-		// The anchor for this image is the base of the flagpole at (0, 32).
-		anchor: new google.maps.Point(0, 32)
-	};
-	var shape = {
-		coords: [1, 1, 1, 20, 18, 20, 18, 1],
-		type: 'poly'
-	};
-	// -- END
-
-	var tourists = [{loc: CMU,lat: 40.443466, lng: -79.943457}, {loc: UPitt, lat: 40.444328, lng: -79.953155}, {loc: Girasole Walnut St, lat: 40.451195, lng: -79.934610}]
-	for t in tourists{
+	// Create tourist markers
+	// InfoWindow: Only one open at one time
+	var infowindow = new google.maps.InfoWindow();
+	for (var i=0; i<tourists.length; i++){		
+		var t = tourists[i];
+		// InfoWindow Content for tourist
+		var contentString = "<p> Pickup: "+t[0]+"<br>"+
+							"Interest: "+interests[i]+"<br>"+
+							"Duration: "+durations[i] + "</p>";
+		// Create Tourist Marker
 		var touristMarker = new google.maps.Marker({
-			position: {lat: t.lat, lng: t.lon},
-			map: map,
+			position: {lat: t[1], lng: t[2]},
 			icon: img,
-			title: t.loc
+			title: t[0],
+			map: map,
+			infowindow: infowindow,
+			cs: contentString
 			// icon: image,
 			// shape: shape
 		});
-	}
+	    google.maps.event.addListener(touristMarker, 'click', function() {
+			// Close other infoWindows
+	    	this.infowindow.close();
+	    	// Set new infoWindow
+	    	this.infowindow.setContent(this.cs);
+	    	this.infowindow.open(map, this);	
+	    });
+	};
 }
 
 // Init Map Callback to display map
