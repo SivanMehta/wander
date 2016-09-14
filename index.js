@@ -2,25 +2,21 @@ var fs = require('fs');
 var path = require('path');
 
 var express = require('express')
+var engine = require('ejs-locals')
 var app = express();
 
-// Set the views directory
-app.set('views', __dirname + '/views');
+// Configure the views
+app.set('views', __dirname + '/views')
+app.set('view engine', 'ejs')
+app.engine('ejs', engine);
+app.set('layout', __dirname + '/views/index.ejs')
 
-// Define the view (templating) engine
-app.set('view engine', 'ejs');
-
-// Load all routes in the routes directory
-fs.readdirSync('./routes').forEach(function (file){
-  // There might be non-js files in the directory that should not be loaded
+// Load all routes in the models directory
+fs.readdirSync('./models').forEach(function (file){
   if (path.extname(file) == '.js') {
-		console.log("Adding routes in "+file);
-		require('./routes/'+ file).init(app);
+		require('./models/'+ file).init(app)
   	}
 });
 
 // Handle static files
-app.use(express.static(__dirname + '/public'));
-
-require('./models/socket.js').init(app);
-
+app.use(express.static(__dirname + '/public'))

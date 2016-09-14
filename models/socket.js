@@ -8,7 +8,7 @@ exports.init = (app) => {
     }
 
     app.get("/", (req, res) => {
-        res.sendFile(__dirname + "/index.html")
+        res.render('connection')
     })
 
     const PORT = process.env.PORT || 5000

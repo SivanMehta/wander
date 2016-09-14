@@ -1,25 +1,13 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>User</title>
-		<link rel="stylesheet" type="text/css" href="/css/style.css">
-	</head>
-	<!-- JQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script type="text/javascript" src="/js/coords.js"></script>
+<% layout('layout') -%>
 
-	<body>
-		<p id="welcome">Welcome</p>	
-		<p id="currentLoc"> </p>
-		<!-- Display map with markers for current user location -->
-		<div id="map">
+<p id="welcome">Welcome</p>
+<p id="currentLoc"></p>
 
-		</div>
+<!-- Display map with markers for current user location -->
+<div id="map">
+</div>
 
-	<!-- Script to get map -->
-	<script async defer
-    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBj5ahzW50vUv9eNPtUYIernp_J_JS5CEM&callback=initMap">
-    </script>
-
-	</body>
-</html>
+<!-- Script to get map -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBj5ahzW50vUv9eNPtUYIernp_J_JS5CEM&callback=initMap">
+</script>
+<script type="text/javascript" src="/js/coords.js"></script>
