@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import Map from './maps/map'
+import MyMap from './maps/map'
 var socket;
 
 export default class App extends React.Component {
@@ -25,7 +25,7 @@ export default class App extends React.Component {
         role: role,
         location: {
           lat: position.coords.latitude,
-          lng:position.coords.latitude
+          lng:position.coords.longitude
         }
       })
 
@@ -39,7 +39,7 @@ export default class App extends React.Component {
   render() {
     if(this.state.page == 'login') {
       return(
-          <div id = "welcome">
+          <div className = 'container'>
             <h1>Connect As: </h1>
             <div className="btn-group" role = "group">
             <button type="button" className = "btn btn-default" id = "tbutton" onClick = { this.connect }>Tourist</button>
@@ -55,7 +55,7 @@ export default class App extends React.Component {
       )
     } else {
       return (
-        <Map role = { this.state.role }
+        <MyMap role = { this.state.role }
              center = { this.state.location }
              users = { this.state.users }
         />
