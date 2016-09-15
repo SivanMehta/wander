@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import Login from './login'
+import Map from './maps/map'
 var socket;
 
 export default class App extends React.Component {
@@ -20,12 +20,23 @@ export default class App extends React.Component {
                           '&lat='+position.coords.latitude +
                           '&long='+position.coords.longitude});
 
-      this.setState({page: 'map'})
+      this.setState({
+        page: 'map',
+        role: role,
+        location: {
+          lat: position.coords.latitude,
+          lng:position.coords.latitude
+        }
+      })
+
+      socket.on('users', (data) => {
+        this.setState({users: data})
+      })
+
     });
   }
 
   render() {
-    console.log(this.state)
     if(this.state.page == 'login') {
       return(
           <div id = "welcome">
@@ -44,7 +55,10 @@ export default class App extends React.Component {
       )
     } else {
       return (
-        <p>Super Cool Map!</p>
+        <Map role = { this.state.role }
+             center = { this.state.location }
+             users = { this.state.users }
+        />
       )
     }
   }
