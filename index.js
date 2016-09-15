@@ -11,12 +11,8 @@ app.set('view engine', 'ejs')
 app.engine('ejs', engine);
 app.set('layout', __dirname + '/views/index.ejs')
 
-// Load all routes in the models directory
-fs.readdirSync('./models').forEach(function (file){
-  if (path.extname(file) == '.js') {
-		require('./models/'+ file).init(app)
-  	}
-});
-
 // Handle static files
 app.use(express.static(__dirname + '/public'))
+
+// start app
+require('./models/socket.js').init(app)

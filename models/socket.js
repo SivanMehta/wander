@@ -12,6 +12,7 @@ exports.init = (app) => {
     })
 
     const PORT = process.env.PORT || 5000
+    app.set('port', PORT);
     var http = require('http').Server(app)
     var io = require('socket.io')(http)
 
