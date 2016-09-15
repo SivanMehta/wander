@@ -1,4 +1,5 @@
-var async = require('async');
+const async = require('async');
+const path = require('path');
 
 exports.init = (app) => {
     // this user 'database' will eventually have to be persisted somewhere, as in-memory is not very reliable
@@ -8,7 +9,7 @@ exports.init = (app) => {
     }
 
     app.get("/", (req, res) => {
-        res.render('connection')
+        res.sendFile(path.join(__dirname, 'index.html'))
     })
 
     const PORT = process.env.PORT || 5000
