@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "watch": "rm -rf public/dist/build/ && webpack --progress --watch"
+    "watch": "rm -rf public/dist/build/ && webpack --progress --watch",
+    "deploy": "webpack && node index.js"
   },
   "repository": {
     "type": "git",
