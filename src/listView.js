@@ -6,12 +6,24 @@ export default class ListView extends React.Component {
     super(props)
   }
 
+  renderButton(role, id) {
+    if(this.props.role + "s" != role) {
+      return(
+          <button className="btn btn-success" onClick = { (e) => { console.log('connected to ' + id) } }>
+            Connect!
+          </button>
+      )
+    } else {
+      return <span></span>
+    }
+  }
+
   renderUsers(role) {
     var result = []
     this.props.users[role] ? this.props.users[role].forEach((user) => {
       result.push(
         <li className="list-group-item">
-          lat: {user.lat}, lng: {user.lng}
+          lat: {user.lat}, lng: {user.lng} { this.renderButton(role, user.id) }
         </li>
       )
     }) : []

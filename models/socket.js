@@ -42,7 +42,8 @@ exports.init = (app) => {
         // 'persist the user'
         users[socket.role][socket.id] = {
             lat: socket.lat,
-            lng: socket.long
+            lng: socket.long,
+            id: socket.id
         }
         emitUserInfo()
 
