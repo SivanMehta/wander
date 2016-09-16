@@ -7,7 +7,8 @@ export default class Users extends React.Component {
     super(props)
 
       this.state = {
-        users: {}
+        users: {},
+        role: this.props.role
       }
   }
 
@@ -24,7 +25,7 @@ export default class Users extends React.Component {
   render() {
     return(
       <div className = 'container'>
-        <ListView users = { this.state.users }/>
+        <ListView users = { this.state.users } role = { this.state.role }/>
       </div>
     )
   }
