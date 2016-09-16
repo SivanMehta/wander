@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import MyMap from './maps/map'
+import Users from './users'
 var socket;
 
 export default class App extends React.Component {
@@ -16,26 +16,16 @@ export default class App extends React.Component {
     this.setState({page: 'loading'})
     const role = event.target.id == 'tbutton' ? 'tourist' : 'guide'
     navigator.geolocation.getCurrentPosition((position) => {
-      socket = io('', {query: 'role='+role +
-                          '&lat='+position.coords.latitude +
-                          '&long='+position.coords.longitude});
-
       this.setState({
-        page: 'map',
+        page: 'users',
         role: role,
-        location: {
+        position: {
           lat: position.coords.latitude,
-          lng:position.coords.longitude
+          lng: position.coords.longitude
         }
       })
-
-      socket.on('users', (data) => {
-        this.setState({users: data})
-      })
-
-    });
+    })
   }
-
   render() {
     if(this.state.page == 'login') {
       return(
@@ -55,10 +45,9 @@ export default class App extends React.Component {
       )
     } else {
       return (
-        <MyMap role = { this.state.role }
-             center = { this.state.location }
-             users = { this.state.users }
-        />
+        <Users role = { this.state.role }
+               view = { 'users' }
+               position = { this.state.position }/>
       )
     }
   }
