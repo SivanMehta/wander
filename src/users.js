@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
+import ListView from './listView'
 
 export default class Users extends React.Component {
   constructor(props) {
@@ -14,15 +15,17 @@ export default class Users extends React.Component {
     this.socket = io('', {query: 'role='+this.props.role +
                                   '&lat='+this.props.position.lat +
                                   '&long='+this.props.position.lng});
+
     this.socket.on('users', (users) => {
       this.setState({users: users})
     })
   }
 
   render() {
-    console.log(this.state)
     return(
-      <p>{JSON.stringify(this.state.users)}</p>
+      <div className = 'container'>
+        <ListView users = { this.state.users }/>
+      </div>
     )
   }
 }

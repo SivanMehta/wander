@@ -1,7 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
 import Users from './users'
-var socket;
 
 export default class App extends React.Component {
   constructor(props) {
@@ -26,6 +25,7 @@ export default class App extends React.Component {
       })
     })
   }
+
   render() {
     if(this.state.page == 'login') {
       return(
