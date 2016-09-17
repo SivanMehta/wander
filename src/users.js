@@ -6,13 +6,11 @@ export default class Users extends React.Component {
   constructor(props) {
     super(props)
 
-      this.state = {
-        users: {},
-        role: this.props.role
-      }
-  }
+    this.state = {
+      users: {},
+      role: this.props.role
+    }
 
-  componentDidMount() {
     this.socket = io('', {query: 'role='+this.props.role +
                                   '&lat='+this.props.position.lat +
                                   '&long='+this.props.position.lng});
@@ -20,12 +18,18 @@ export default class Users extends React.Component {
     this.socket.on('users', (users) => {
       this.setState({users: users})
     })
+
+    this.socket.on('request', (id) => {
+      console.log(id)
+    })
   }
 
   render() {
     return(
       <div className = 'container'>
-        <ListView users = { this.state.users } role = { this.state.role }/>
+        <ListView users = { this.state.users }
+                  role = { this.state.role }
+                  id = { this.socket.id } />
       </div>
     )
   }
