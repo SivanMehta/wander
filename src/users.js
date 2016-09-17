@@ -21,15 +21,17 @@ export default class Users extends React.Component {
     })
 
     this.socket.on('request', (id) => {
-      console.log('received request from ' + id)
-      $('#alertModal').modal('show')
+      this.refs.alert.setState({
+        content: id
+      })
     })
+
   }
 
   render() {
     return(
       <div className = 'container'>
-        <Alert />
+        <Alert id = { this.socket.id } ref = 'alert' />
         <ListView users = { this.state.users }
                   role = { this.state.role }
                   id = { this.socket.id } />
