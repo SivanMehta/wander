@@ -2,11 +2,20 @@ const async = require('async');
 const path = require('path');
 
 exports.init = (app) => {
-    // this user 'database' will eventually have to be persisted somewhere, as in-memory is not very reliable
+    /*
+      This user 'database' would eventually have to be persisted
+      somewhere, as in-memory is not very reliable.
+    */
     var users = {
         tourist: {},
         guide: {},
     }
+
+    /*
+      Similar to above, this would have to eventually be stored
+      in a more reliably consistent data store
+    */
+    var tripRequests = {}
 
 
     const PORT = process.env.PORT || 5000
@@ -54,12 +63,23 @@ exports.init = (app) => {
       res.sendFile(path.join(__dirname, 'index.html'))
     })
 
-    app.post('/api/message/:to', (req, res) => {
+    app.post('/api/message', (req, res) => {
       // ping recipient
-      io.to("/#" + req.params.to).emit('request', 'you have received a request from ' + req.body.from)
+      io.to("/#" + req.body.to).emit('request', req.body.from)
+
+      // 'persist' the request such that one user can only request
+      // one at a time
+      tripRequests[req.body.from] = {
+        user: req.body.to,
+        status: 'pending'
+      }
 
       // confirm message went through
       res.send(req.params.to)
+    })
+
+    app.get('/debug/tripRequests', (req, res) => {
+      res.send(tripRequests);
     })
 
     http.listen(PORT, () => {
