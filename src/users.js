@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import ListView from './listView'
 import Alert from './alert'
+import Response from './response'
 
 export default class Users extends React.Component {
   constructor(props) {
@@ -20,10 +21,20 @@ export default class Users extends React.Component {
       this.setState({users: users})
     })
 
-    this.socket.on('request', (id) => {
+    this.socket.on('make request', (id) => {
       this.refs.alert.setState({
         content: id
       })
+    })
+
+    this.socket.on('return request', (data) => {
+      this.refs.response.setState({
+        status: data.status,
+        to: data.to,
+        show: true
+      })
+
+      // presumably change the view, but that is for a later implementation
     })
 
   }
@@ -32,6 +43,7 @@ export default class Users extends React.Component {
     return(
       <div className = 'container'>
         <Alert id = { this.socket.id } ref = 'alert' />
+        <Response ref = 'response' />
         <ListView users = { this.state.users }
                   role = { this.state.role }
                   id = { this.socket.id } />

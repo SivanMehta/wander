@@ -66,9 +66,9 @@ exports.init = (app) => {
       res.sendFile(path.join(__dirname, 'index.html'))
     })
 
-    app.post('/api/message', (req, res) => {
+    app.post('/api/request', (req, res) => {
       // ping recipient
-      io.to("/#" + req.body.to).emit('request', req.body.from)
+      io.to("/#" + req.body.to).emit('make request', req.body.from)
 
       // 'persist' the request such that one user can only request
       // one at a time
@@ -79,6 +79,19 @@ exports.init = (app) => {
 
       // confirm message went through
       res.send(req.params.to)
+    })
+
+    app.patch('/api/request', (req, res) => {
+      // ping sender
+      io.to('/#' + req.body.from).emit('return request', {
+        to: req.body.to,
+        status: req.body.response
+      })
+
+      tripRequests.set(req.body.from, {
+        user: req.body.to,
+        status: req.body.content
+      })
     })
 
     app.get('/debug/tripRequests', (req, res) => {

@@ -11,7 +11,21 @@ export default class Alert extends React.Component {
   }
 
   respond(response) {
-    console.log((response ? 'accepted' : 'denied') + ' trip request')
+    // handle request
+    $.ajax({
+      url: '/api/request',
+      method: 'PATCH',
+      contentType: 'application/json',
+      datatype: 'json',
+      data: JSON.stringify({
+        from: this.state.content,
+        to: this.props.id,
+        response: response
+      }),
+      success: (data, status) => {
+        console.log((response ? 'accepted' : 'denied') + ' trip request')
+      }
+    })
 
     // close modal
     this.setState({
