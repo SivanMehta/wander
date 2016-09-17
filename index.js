@@ -5,6 +5,9 @@ var app = express();
 var morgan = require('morgan')
 app.use(morgan('dev'))
 
+// body parsing
+app.use(require('body-parser').json())
+
 // Handle static files
 app.use(express.static(__dirname + '/public'))
 

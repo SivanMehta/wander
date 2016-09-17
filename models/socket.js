@@ -55,11 +55,11 @@ exports.init = (app) => {
     })
 
     app.post('/api/message/:to', (req, res) => {
-      io.to("/#" + req.params.to).emit('request', 'you have received a request!')
+      io.to("/#" + req.params.to).emit('request', 'you have received a request from ' + req.body.from)
       res.send(req.params.to)
     })
 
     http.listen(PORT, () => {
-        console.log("Server listening on port " + PORT)
+        console.log("Server started on port " + PORT)
     })
 }
