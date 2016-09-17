@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import ListView from './listView'
+import Alert from './alert'
 
 export default class Users extends React.Component {
   constructor(props) {
@@ -20,13 +21,15 @@ export default class Users extends React.Component {
     })
 
     this.socket.on('request', (id) => {
-      alert(id)
+      console.log('received request from ' + id)
+      $('#alertModal').modal('show')
     })
   }
 
   render() {
     return(
       <div className = 'container'>
+        <Alert />
         <ListView users = { this.state.users }
                   role = { this.state.role }
                   id = { this.socket.id } />
