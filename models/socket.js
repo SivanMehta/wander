@@ -1,5 +1,6 @@
 const async = require('async');
 const path = require('path');
+const LRU = require('lru-cache')
 
 exports.init = (app) => {
     /*
@@ -15,7 +16,9 @@ exports.init = (app) => {
       Similar to above, this would have to eventually be stored
       in a more reliably consistent data store
     */
-    var tripRequests = {}
+    var tripRequests = LRU({
+      maxAge: 1000 * 60 * 5 // tripRequests only are 'remembered for 5 minutes'
+    })
 
 
     const PORT = process.env.PORT || 5000
@@ -69,17 +72,22 @@ exports.init = (app) => {
 
       // 'persist' the request such that one user can only request
       // one at a time
-      tripRequests[req.body.from] = {
+      tripRequests.set(req.body.from, {
         user: req.body.to,
         status: 'pending'
-      }
+      })
 
       // confirm message went through
       res.send(req.params.to)
     })
 
     app.get('/debug/tripRequests', (req, res) => {
-      res.send(tripRequests);
+      res.send('Total Requests: ' + tripRequests.length);
+    })
+
+    app.get('/debug/tripRequests/empty', (req, res) => {
+      tripRequests.reset()
+      res.send('Total Requests: ' + tripRequests.length);
     })
 
     http.listen(PORT, () => {
