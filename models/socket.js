@@ -55,7 +55,10 @@ exports.init = (app) => {
     })
 
     app.post('/api/message/:to', (req, res) => {
+      // ping recipient
       io.to("/#" + req.params.to).emit('request', 'you have received a request from ' + req.body.from)
+
+      // confirm message went through
       res.send(req.params.to)
     })
 

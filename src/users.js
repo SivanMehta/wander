@@ -20,7 +20,7 @@ export default class Users extends React.Component {
     })
 
     this.socket.on('request', (id) => {
-      console.log(id)
+      alert(id)
     })
   }
 
