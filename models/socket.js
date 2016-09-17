@@ -8,9 +8,6 @@ exports.init = (app) => {
         guide: {},
     }
 
-    app.get("/", (req, res) => {
-        res.sendFile(path.join(__dirname, 'index.html'))
-    })
 
     const PORT = process.env.PORT || 5000
     app.set('port', PORT);
@@ -51,6 +48,15 @@ exports.init = (app) => {
             delete users[socket.role][socket.id];
             emitUserInfo()
         })
+    })
+
+    app.get("/", (req, res) => {
+      res.sendFile(path.join(__dirname, 'index.html'))
+    })
+
+    app.post('/api/message/:to', (req, res) => {
+      io.to("/#" + req.params.to).emit('request', 'you have received a request!')
+      res.send(req.params.to)
     })
 
     http.listen(PORT, () => {

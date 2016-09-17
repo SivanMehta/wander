@@ -7,15 +7,30 @@ export default class ListView extends React.Component {
   }
 
   renderButton(role, id) {
+    id = id.split('#')[1]
     if(this.props.role + "s" != role) {
       return(
-          <button className="btn btn-success" onClick = { (e) => { console.log('connected to ' + id) } }>
+          <button className="btn btn-success" onClick = { (e) => { this.connectToUser(id) } }>
             Connect!
           </button>
       )
     } else {
       return <span></span>
     }
+  }
+
+  connectToUser(id) {
+    console.log('send message to: ' + id + ', from: ' + this.props.id)
+    $.ajax({
+      url: '/api/message/' + id,
+      method: 'POST',
+      data: {
+        from: this.props.id
+      },
+      success: (data, status) => {
+        console.log(data)
+      }
+    })
   }
 
   renderUsers(role) {
