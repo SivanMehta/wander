@@ -20,15 +20,16 @@ export default class ListView extends React.Component {
   }
 
   connectToUser(id) {
-    console.log('send message to: ' + id + ', from: ' + this.props.id)
     $.ajax({
       url: '/api/message/' + id,
       method: 'POST',
-      data: {
+      contentType: 'application/json',
+      datatype: 'json',
+      data: JSON.stringify({
         from: this.props.id
-      },
+      }),
       success: (data, status) => {
-        console.log(data)
+        console.log('send message to' + id)
       }
     })
   }
