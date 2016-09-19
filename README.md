@@ -1,5 +1,4 @@
-# Wander
-Local Tour Guides on your own time
+![Wander](https://raw.githubusercontent.com/SivanMehta/wander/master/public/logo.png)
 
 ## Implemented Features
 

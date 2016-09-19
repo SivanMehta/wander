@@ -1,20 +1,18 @@
 var socket;
 
 function connect(role) {
-    heading.innerHTML = "<center><span class='glyphicon glyphicon-repeat' aria-hidden='true'></span></center>";
+    welcome.innerHTML = "<center><span class='glyphicon glyphicon-repeat' aria-hidden='true'></span></center>";
 
     navigator.geolocation.getCurrentPosition(function(position) {
-        socket = io('', {query: 'role='+role + 
+        socket = io('', {query: 'role='+role +
                                 '&lat='+position.coords.latitude +
                                 '&long='+position.coords.longitude});
 
         socket.on('users', function(data) {
-            guides.innerHTML = `Connected Guides: ${ JSON.stringify(data.guides) }`
-            tourists.innerHTML = `Connected Tourists: ${ JSON.stringify(data.tourists) }`
-        })
-
-        document.getElementById('heading').remove();
-    });
+          $('#welcome').remove()
+          initMap(data)
+        });
+  })
 }
 
 $('#tbutton').on('click touchstart', function () {
