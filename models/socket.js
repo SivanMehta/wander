@@ -1,17 +1,28 @@
-var async = require('async');
+const async = require('async');
+const path = require('path');
+const LRU = require('lru-cache')
 
 exports.init = (app) => {
-    // this user 'database' will eventually have to be persisted somewhere, as in-memory is not very reliable
+    /*
+      This user 'database' would eventually have to be persisted
+      somewhere, as in-memory is not very reliable.
+    */
     var users = {
         tourist: {},
         guide: {},
     }
 
-    app.get("/", (req, res) => {
-        res.sendFile(__dirname + "/index.html")
+    /*
+      Similar to above, this would have to eventually be stored
+      in a more reliably consistent data store
+    */
+    var tripRequests = LRU({
+      maxAge: 1000 * 60 * 5 // tripRequests only are 'remembered for 5 minutes'
     })
 
+
     const PORT = process.env.PORT || 5000
+    app.set('port', PORT);
     var http = require('http').Server(app)
     var io = require('socket.io')(http)
 
@@ -40,7 +51,8 @@ exports.init = (app) => {
         // 'persist the user'
         users[socket.role][socket.id] = {
             lat: socket.lat,
-            long: socket.long
+            lng: socket.long,
+            id: socket.id
         }
         emitUserInfo()
 
@@ -50,7 +62,48 @@ exports.init = (app) => {
         })
     })
 
+    app.get("/", (req, res) => {
+      res.sendFile(path.join(__dirname, 'index.html'))
+    })
+
+    app.post('/api/request', (req, res) => {
+      // ping recipient
+      io.to("/#" + req.body.to).emit('make request', req.body.from)
+
+      // 'persist' the request such that one user can only request
+      // one at a time
+      tripRequests.set(req.body.from, {
+        user: req.body.to,
+        status: 'pending'
+      })
+
+      // confirm message went through
+      res.send(req.params.to)
+    })
+
+    app.patch('/api/request', (req, res) => {
+      // ping sender
+      io.to('/#' + req.body.from).emit('return request', {
+        to: req.body.to,
+        status: req.body.response
+      })
+
+      tripRequests.set(req.body.from, {
+        user: req.body.to,
+        status: req.body.content
+      })
+    })
+
+    app.get('/debug/tripRequests', (req, res) => {
+      res.send('Total Requests: ' + tripRequests.length);
+    })
+
+    app.get('/debug/tripRequests/empty', (req, res) => {
+      tripRequests.reset()
+      res.send('Total Requests: ' + tripRequests.length);
+    })
+
     http.listen(PORT, () => {
-        console.log("Server listening on port " + PORT)
+        console.log("Server started on port " + PORT)
     })
 }

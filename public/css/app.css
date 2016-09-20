@@ -5,6 +5,7 @@
 .glyphicon-repeat
 {
     font-size: 72px;
+    margin-top: 15px;
     animation-name: loading;
     animation-duration: .75s;
     animation-iteration-count: infinite;
@@ -15,4 +16,8 @@
 {
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}
+}
+
+app {
+  position: fixed;
 }
