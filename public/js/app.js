@@ -9,8 +9,10 @@ function connect(role) {
                                 '&long='+position.coords.longitude});
 
         socket.on('users', function(data) {
-          $('#welcome').remove()
+          // To display Map + markers for tour guide/ tourists
           initMap(data)
+          // To get address from lat, long
+
         });
   })
 }
