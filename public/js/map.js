@@ -56,16 +56,16 @@ function displayMap(data) {
 	var interests = ["Oakland Sightseeing", "Cathedral of Learning and Restaurants", "Shadyside Shopping and Ice Cream"];
 	var durations = ["2 hours", "2 hours", "3 hours"];
 
-	// Create tourist markers
 	// InfoWindow: Only one open at one time
 	var infowindow = new google.maps.InfoWindow()
+	// Create tourist markers
 	for(var i = 0; i < data.tourists.length; i++) {
 		const contentString = "<p>Tourist</p>";
+		// Get Tourist Lat/ Long from values passed
 		const coords = {
 			lat: parseFloat(data.tourists[i].lat),
 			lng: parseFloat(data.tourists[i].lng)
 		}
-
 		var touristMarker = new google.maps.Marker({
 			position: coords,
 			map: map,
@@ -84,5 +84,5 @@ function displayMap(data) {
 
 // Init Map Callback to display map
 function initMap(data) {
-			displayMap(data);
+	displayMap(data);
 }
