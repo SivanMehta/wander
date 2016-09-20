@@ -10,9 +10,11 @@ export default class ListView extends React.Component {
     id = id.split('#')[1]
     if(this.props.role + "s" != role) {
       return(
-          <button className="btn btn-success" onClick = { (e) => { this.connectToUser(id) } }>
+        <div className='card-block'>
+          <a href="#" className="btn btn-success" onClick = { (e) => { this.connectToUser(id) } }>
             Connect!
-          </button>
+          </a>
+        </div>
       )
     } else {
       return <span></span>
@@ -39,9 +41,14 @@ export default class ListView extends React.Component {
     var result = []
     this.props.users[role] ? this.props.users[role].forEach((user) => {
       result.push(
-        <li className="list-group-item">
-          lat: {user.lat}, lng: {user.lng} { this.renderButton(role, user.id) }
-        </li>
+        <div className="card">
+          <img className="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=600&h=200" alt="Card image cap" />
+          <div className="card-block">
+            <h4 className="card-title">Joe Schmoe</h4>
+            <p className="card-text">lat: {user.lat}, lng: {user.lng} </p>
+          </div>
+          { this.renderButton(role, user.id) }
+        </div>
       )
     }) : []
 
@@ -56,15 +63,11 @@ export default class ListView extends React.Component {
       <div className = 'row'>
         <div className = 'col-sm-12 col-md-6'>
           <h1>Tourists:</h1>
-          <ul className='list-group'>
             { tourists.length != 0 ? tourists : 'There are no tourists currently connected'}
-          </ul>
         </div>
         <div className = 'col-sm-12 col-md-6'>
           <h1>Guides:</h1>
-          <ul className='list-group'>
             { guides.length != 0 ? guides : 'There are no guides currently connected'}
-          </ul>
         </div>
       </div>
 
