@@ -49,18 +49,21 @@ export default class ListView extends React.Component {
   }
 
   render() {
+    const tourists = this.renderUsers('tourists')
+    const guides = this.renderUsers('guides')
+
     return(
       <div className = 'row'>
         <div className = 'col-sm-12 col-md-6'>
           <h1>Tourists:</h1>
           <ul className='list-group'>
-            { this.renderUsers('tourists') }
+            { tourists.length != 0 ? tourists : 'There are no tourists currently connected'}
           </ul>
         </div>
         <div className = 'col-sm-12 col-md-6'>
           <h1>Guides:</h1>
           <ul className='list-group'>
-            { this.renderUsers('guides') }
+            { guides.length != 0 ? guides : 'There are no guides currently connected'}
           </ul>
         </div>
       </div>
