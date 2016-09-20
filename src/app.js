@@ -32,8 +32,8 @@ export default class App extends React.Component {
           <div className = 'container'>
             <h1>Connect As: </h1>
             <div className="btn-group" role = "group">
-            <button type="button" className = "btn btn-default" id = "tbutton" onClick = { this.connect }>Tourist</button>
-            <button type="button" className = "btn btn-default" id = "gbutton" onClick = { this.connect }>Guide</button>
+            <button type="button" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Tourist</button>
+            <button type="button" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Guide</button>
             </div>
           </div>
         )
