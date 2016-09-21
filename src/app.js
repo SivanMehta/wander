@@ -40,7 +40,7 @@ export default class App extends React.Component {
     } else if (this.state.page == 'loading') {
       return(
         <center>
-          <span className='glyphicon glyphicon-repeat' aria-hidden='true'></span>
+          <i className="fa fa-repeat" aria-hidden="true"></i>
         </center>
       )
     } else {
