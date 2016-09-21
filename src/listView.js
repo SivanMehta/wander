@@ -40,7 +40,8 @@ export default class ListView extends React.Component {
     this.props.users[role] ? this.props.users[role].forEach((user) => {
       result.push(
         <li className="list-group-item">
-          lat: {user.lat}, lng: {user.lng} { this.renderButton(role, user.id) }
+          { this.renderButton(role, user.id) }
+          address: {user.address}
         </li>
       )
     }) : []
