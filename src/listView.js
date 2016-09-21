@@ -41,6 +41,7 @@ export default class ListView extends React.Component {
       result.push(
         <li className="list-group-item">
           lat: {user.lat}, lng: {user.lng} { this.renderButton(role, user.id) }
+          address: {user.address}
         </li>
       )
     }) : []

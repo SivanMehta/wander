@@ -1,7 +1,7 @@
 var socket;
 
 function connect(role) {
-    welcome.innerHTML = "<center><span class='glyphicon glyphicon-repeat' aria-hidden='true'></span></center>";
+    // welcome.innerHTML = "<center><span class='glyphicon glyphicon-repeat' aria-hidden='true'></span></center>";
 
     navigator.geolocation.getCurrentPosition(function(position) {
         socket = io('', {query: 'role='+role +
@@ -12,7 +12,7 @@ function connect(role) {
           // To display Map + markers for tour guide/ tourists
           initMap(data)
           // To get address from lat, long
-
+          
         });
   })
 }
