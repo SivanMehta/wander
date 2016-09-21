@@ -18,6 +18,16 @@
   to {transform: rotate(360deg);}
 }
 
-app {
+#app {
   position: fixed;
+}
+
+/* For Maps To Display */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#map{
+  height: 100%;
 }
