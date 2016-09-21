@@ -45,7 +45,7 @@ export default class ListView extends React.Component {
           <img className="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=600&h=200" alt="Card image cap" />
           <div className="card-block">
             <h4 className="card-title">Joe Schmoe</h4>
-            <p className="card-text">lat: {user.lat}, lng: {user.lng} </p>
+            <p className="card-text">address: {user.address}</p>
           </div>
           { this.renderButton(role, user.id) }
         </div>
