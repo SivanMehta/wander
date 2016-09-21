@@ -45,19 +45,12 @@ export default class App extends React.Component {
     this.setState({page: 'loading'})
     const role = event.target.id == 'tbutton' ? 'tourist' : 'guide'
     navigator.geolocation.getCurrentPosition((position) => {
-      var address = "";
-      // function initMap(){
-      //   address = reverseGeocode(position.coords.latitude, position.coords.longitude)
-      // }
-      // initMap()
-      // TO BE FIXED: async issue: state set before address computed
       this.setState({
         page: 'users',
         role: role,
         position: {
           lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          address: address
+          lng: position.coords.longitude
         }
       })
     })
