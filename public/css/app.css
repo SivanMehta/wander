@@ -2,7 +2,7 @@
   Loading Icon Animation
 */
 
-.glyphicon-repeat
+.fa-repeat
 {
     font-size: 72px;
     margin-top: 15px;
@@ -18,6 +18,6 @@
   to {transform: rotate(360deg);}
 }
 
-app {
-  position: fixed;
+img.card-img-top {
+  max-width: 100%
 }

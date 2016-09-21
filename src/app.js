@@ -24,6 +24,7 @@ export default class App extends React.Component {
         }
       })
     })
+
   }
 
   render() {
@@ -32,15 +33,15 @@ export default class App extends React.Component {
           <div className = 'container'>
             <h1>Connect As: </h1>
             <div className="btn-group" role = "group">
-            <button type="button" className = "btn btn-default" id = "tbutton" onClick = { this.connect }>Tourist</button>
-            <button type="button" className = "btn btn-default" id = "gbutton" onClick = { this.connect }>Guide</button>
+            <button type="button" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Tourist</button>
+            <button type="button" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Guide</button>
             </div>
           </div>
         )
     } else if (this.state.page == 'loading') {
       return(
         <center>
-          <span className='glyphicon glyphicon-repeat' aria-hidden='true'></span>
+          <i className="fa fa-repeat" aria-hidden="true"></i>
         </center>
       )
     } else {
