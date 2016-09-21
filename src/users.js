@@ -1,8 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
 import ListView from './listView'
-import Alert from './alert'
-import Response from './response'
+import Alert from './request/alert'
+import Response from './request/response'
 
 export default class Users extends React.Component {
   constructor(props) {
