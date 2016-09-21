@@ -2,6 +2,8 @@ const async = require('async');
 const path = require('path');
 const LRU = require('lru-cache')
 
+var geocoder = require('geocoder');
+
 exports.init = (app) => {
     /*
       This user 'database' would eventually have to be persisted
@@ -48,13 +50,19 @@ exports.init = (app) => {
         socket.lat = socket.handshake.query.lat
         socket.long = socket.handshake.query.long
 
-        // 'persist the user'
-        users[socket.role][socket.id] = {
-            lat: socket.lat,
-            lng: socket.long,
-            id: socket.id
-        }
-        emitUserInfo()
+        // Reverse Geocoding 
+        var lat = socket.lat
+        var lng = socket.long
+        geocoder.reverseGeocode(lat, lng, function ( err, data ) {
+          // 'persist the user'
+          users[socket.role][socket.id] = {
+              lat: socket.lat,
+              lng: socket.long,
+              address: data.results[1].formatted_address,
+              id: socket.id
+          }
+          emitUserInfo()
+        });
 
         socket.on('disconnect', () => {
             delete users[socket.role][socket.id];
