@@ -46,26 +46,23 @@ exports.init = (app) => {
     }
 
     io.on('connection', (socket) => {
-        socket.role = socket.handshake.query.role
-        socket.lat = socket.handshake.query.lat
-        socket.long = socket.handshake.query.long
-
-        // Reverse Geocoding 
-        var lat = socket.lat
-        var lng = socket.long
+        // Reverse Geocoding
+        var lat = socket.handshake.query.lat
+        var lng = socket.handshake.query.long
         geocoder.reverseGeocode(lat, lng, function ( err, data ) {
           // 'persist the user'
-          users[socket.role][socket.id] = {
-              lat: socket.lat,
-              lng: socket.long,
+          users[socket.handshake.query.role][socket.handshake.query.username] = {
+              lat: socket.handshake.query.lat,
+              lng: socket.handshake.query.long,
               address: data.results[1].formatted_address,
-              id: socket.id
+              id: socket.id,
+              username: socket.handshake.query.username
           }
           emitUserInfo()
         });
 
         socket.on('disconnect', () => {
-            delete users[socket.role][socket.id];
+            delete users[socket.handshake.query.role][socket.handshake.query.username];
             emitUserInfo()
         })
     })
@@ -91,9 +88,10 @@ exports.init = (app) => {
 
     app.patch('/api/request', (req, res) => {
       // ping sender
-      io.to('/#' + req.body.from).emit('return request', {
+      io.to('/#' + req.body.id).emit('return request', {
         to: req.body.to,
-        status: req.body.response
+        status: req.body.response,
+        username: req.body.username
       })
 
       tripRequests.set(req.body.from, {

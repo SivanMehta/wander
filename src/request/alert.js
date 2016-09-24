@@ -18,9 +18,10 @@ export default class Alert extends React.Component {
       contentType: 'application/json',
       datatype: 'json',
       data: JSON.stringify({
-        from: this.state.content,
+        id: this.state.content.id,
         to: this.props.id,
-        response: response
+        response: response,
+        username: this.props.username
       }),
       success: (data, status) => {
         console.log((response ? 'accepted' : 'denied') + ' trip request')
@@ -36,7 +37,7 @@ export default class Alert extends React.Component {
   render() {
     return this.state.content ? (
         <div className = 'alert alert-info'>
-          <p>You have received a request from: { this.state.content }</p>
+          <p>You have received a request from: { this.state.content.username }</p>
           <div className = 'btn-group'>
             <button type="button" className="btn btn-success" onClick = { (e) => { this.respond(true) } } >Accept</button>
             <button type="button" className="btn btn-danger" onClick = { (e) => { this.respond(false) } } >Reject</button>

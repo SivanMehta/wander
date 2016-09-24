@@ -29,7 +29,10 @@ export default class ListView extends React.Component {
       datatype: 'json',
       data: JSON.stringify({
         to: id,
-        from: this.props.id
+        from: {
+          id: this.props.id,
+          username: this.props.username
+        }
       }),
       success: (data, status) => {
         console.log('sent message to ' + id)
@@ -44,7 +47,7 @@ export default class ListView extends React.Component {
         <div className="card">
           <img className="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=600&h=200" alt="Card image cap" />
           <div className="card-block">
-            <h4 className="card-title">Joe Schmoe</h4>
+            <h4 className="card-title">{user.username}</h4>
             <p className="card-text">{user.address}</p>
           </div>
           { this.renderButton(role, user.id) }

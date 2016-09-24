@@ -15,15 +15,16 @@ export default class Users extends React.Component {
 
     this.socket = io('', {query: 'role='+this.props.role +
                                   '&lat='+this.props.position.lat +
-                                  '&long='+this.props.position.lng});
+                                  '&long='+this.props.position.lng +
+                                  '&username='+this.props.username});
 
     this.socket.on('users', (users) => {
       this.setState({users: users})
     })
 
-    this.socket.on('make request', (id) => {
+    this.socket.on('make request', (data) => {
       this.refs.alert.setState({
-        content: id
+        content: data
       })
     })
 
@@ -31,6 +32,7 @@ export default class Users extends React.Component {
       this.refs.response.setState({
         status: data.status,
         to: data.to,
+        username: data.username,
         show: true
       })
 
@@ -42,11 +44,14 @@ export default class Users extends React.Component {
   render() {
     return(
       <div className = 'container'>
-        <Alert id = { this.socket.id } ref = 'alert' />
+        <Alert id = { this.socket.id }
+               ref = 'alert'
+               username = { this.props.username } />
         <Response ref = 'response' />
         <ListView users = { this.state.users }
                   role = { this.state.role }
-                  id = { this.socket.id } />
+                  id = { this.socket.id }
+                  username = { this.props.username } />
       </div>
     )
   }
