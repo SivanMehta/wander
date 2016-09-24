@@ -98,6 +98,8 @@ exports.init = (app) => {
         user: req.body.to,
         status: req.body.content
       })
+
+      res.send(true)
     })
 
     app.get('/debug/tripRequests', (req, res) => {
