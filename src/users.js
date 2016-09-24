@@ -42,14 +42,16 @@ export default class Users extends React.Component {
   }
 
   render() {
+    const counterparts = { guide: 'tourists', tourist: 'guides' }[this.state.role]
+
     return(
       <div className = 'container'>
         <Alert id = { this.socket.id }
                ref = 'alert'
                username = { this.props.username } />
         <Response ref = 'response' />
-        <ListView users = { this.state.users }
-                  role = { this.state.role }
+        <ListView users = { this.state.users[counterparts] }
+                  role = { counterparts }
                   id = { this.socket.id }
                   username = { this.props.username } />
       </div>
