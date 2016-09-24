@@ -2,20 +2,10 @@
   Loading Icon Animation
 */
 
-.fa-repeat
+.fa-spin
 {
     font-size: 72px;
-    margin-top: 15px;
-    animation-name: loading;
-    animation-duration: .75s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-
-@keyframes loading
-{
-  from {transform: rotate(0deg);}
-  to {transform: rotate(360deg);}
+    margin-top: 25px;
 }
 
 img.card-img-top {

@@ -66,7 +66,7 @@ export default class App extends React.Component {
     } else if (this.state.page == 'loading') {
       return(
         <center>
-          <i className="fa fa-repeat" aria-hidden="true"></i>
+          <i className="fa fa-cog fa-spin fa-3x fa-fw"></i>
         </center>
       )
     } else {
