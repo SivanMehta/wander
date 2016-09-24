@@ -58,9 +58,19 @@ export default class App extends React.Component {
             <h1>Welcome to Wander! </h1>
             { this.renderUsernameField() }
             <br />
-            <button type="button" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Connect As Tourist</button>
+            <button type = "button"
+                    className = "btn btn-secondary"
+                    id = "tbutton"
+                    onClick = { this.connect }>
+                      Connect As Tourist <i className="fa fa-pied-piper-alt"></i>
+            </button>
             <br />
-            <button type="button" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Connect As Guide</button>
+            <button type = "button"
+                    className = "btn btn-secondary"
+                    id = "gbutton"
+                    onClick = { this.connect }>
+                      Connect As Guide <i className="fa fa-map-o"></i>
+            </button>
           </div>
         )
     } else if (this.state.page == 'loading') {
