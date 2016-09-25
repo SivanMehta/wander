@@ -28,7 +28,7 @@ export default class App extends React.Component {
   }
 
   homepage(event) {
-    window.history.back(); // Placeholder - goes to previous page
+    this.setState({page: 'users'})
   }
 
   render() {
