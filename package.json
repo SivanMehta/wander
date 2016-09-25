@@ -35,13 +35,8 @@
     "lru-cache": "^4.0.1",
     "morgan": "^1.7.0",
     "react": "^15.3.1",
-    "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
     "socket.io": "^1.4.8",
     "webpack": "^1.13.2"
-  },
-  "devDependencies": {
-    "bootstrap": "^3.3.7",
-    "react-bootstrap": "^0.30.3"
   }
 }
