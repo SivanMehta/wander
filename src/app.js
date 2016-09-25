@@ -51,7 +51,7 @@ export default class App extends React.Component {
             <div className="navbar navbar-default">
               <div className="container-fluid">
                 <div className="navbar-header">
-                  <a className="navbar-brand" href="#">Wander</a>
+                  <img src="https://drive.google.com/file/d/0Bwj14pSlf4NscnpUWG54M0lPN3c/view?usp=sharing"/>
                 </div>
               </div>
             </div>
