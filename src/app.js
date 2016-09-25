@@ -28,7 +28,7 @@ export default class App extends React.Component {
   }
 
   homepage(event) {
-    this.setState({page: 'users'})
+    this.setState({page: 'users'}) // Trying to link back to page of users
   }
 
   render() {
@@ -42,7 +42,8 @@ export default class App extends React.Component {
                 </div>
               </div>
             </div>
-            <h1>Connect As: </h1>
+            <h2 id="title">Welcome to Wander! </h2>
+            <img src="img/image.png" id="home_img"></img>
             <div className="btn-group" role = "group">
               <button type="button" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Tourist</button>
               <button type="button" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Guide</button>
