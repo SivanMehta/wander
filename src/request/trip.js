@@ -24,7 +24,7 @@ export default class Trip extends React.Component {
   render() {
     return(
       <div className = 'jumbotron'>
-        <h1>Hello, { this.props.user }! You are on a trip with { this.props.counterpart }</h1>
+        <p>Trip between { this.props.users.join(' and ') }</p>
         <button type="button" className="btn btn-danger" onClick = { () => { this.cancel() } } >Cancel Trip</button>
       </div>
     )

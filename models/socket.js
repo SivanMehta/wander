@@ -76,25 +76,26 @@ exports.init = (app) => {
       res.send(req.params.to)
     })
 
-    app.patch('/api/request', (req, res) => {
-      // ping sender
+    app.post('/api/trip/create', (req, res) => {
+      // deny request
+      if(!req.body.response) {
+        io.to('/#' + req.body.id).emit('deny trip', {
+          from: req.body.from
+        })
+        return;
+      }
+
+      // accept trip
       const tripID = words({ exactly: 5, join: '-' })
+      // 'create' the trip, in memory for now
       trips[tripID] = [req.body.to, req.body.id]
 
       trips[tripID].forEach((user) => {
         io.to('/#' + user).emit('start trip', {
           tripID: tripID,
-          users: trips[tripID]
+          users: req.body.usernames
         })
       })
-      io.to('/#' + req.body.id).emit('return request', {
-        to: req.body.to,
-        status: req.body.response,
-        username: req.body.username,
-        tripID: tripID
-      })
-
-      // 'create' the trip, in memory for now
 
       res.send(true)
     })

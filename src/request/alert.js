@@ -13,15 +13,16 @@ export default class Alert extends React.Component {
   respond(response) {
     // handle request
     $.ajax({
-      url: '/api/request',
-      method: 'PATCH',
+      url: '/api/trip/create',
+      method: 'POST',
       contentType: 'application/json',
       datatype: 'json',
       data: JSON.stringify({
         id: this.state.content.id,
         to: this.props.id,
         response: response,
-        username: this.props.username
+        from: this.props.username,
+        usernames: [this.props.username, this.state.content.username]
       }),
       success: (data, status) => {
         console.log((response ? 'accepted' : 'denied') + ' trip request')
