@@ -27,6 +27,9 @@ export default class App extends React.Component {
 
   }
 
+  homepage(event) {
+  }
+
   render() {
     if(this.state.page == 'login') {
       return(
@@ -34,7 +37,7 @@ export default class App extends React.Component {
             <div className="navbar navbar-default">
               <div className="container-fluid">
                 <div className="navbar-header">
-                  <a className="navbar-brand" href="#">Wander</a>
+                  <p id="logo">Wander</p>
                 </div>
               </div>
             </div>
@@ -48,13 +51,13 @@ export default class App extends React.Component {
     } else if (this.state.page == 'loading') {
       return(
         <div className = 'container'>
-            <div className="navbar navbar-default">
-              <div className="container-fluid">
-                <div className="navbar-header">
-                  <img src="https://drive.google.com/file/d/0Bwj14pSlf4NscnpUWG54M0lPN3c/view?usp=sharing"/>
-                </div>
+          <div className="navbar navbar-default">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <p id="logo">Wander</p>
               </div>
             </div>
+          </div>
           <center>
             <i className="fa fa-repeat" aria-hidden="true"></i>
           </center>
@@ -62,9 +65,25 @@ export default class App extends React.Component {
       )
     } else {
       return (
-        <Users role = { this.state.role }
-               view = { 'users' }
-               position = { this.state.position }/>
+        <div className = 'container'>
+          <div className="navbar navbar-default">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <div className = 'col-sm-4'>
+                  <button type="button" className = "btn btn-secondary btn-large" id="home_btn" onClick = { this.homepage }>
+                    <i className="fa fa-home" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div className = 'col-sm-4'>
+                  <p id="logo">Wander</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <Users role = { this.state.role }
+                 view = { 'users' }
+                 position = { this.state.position }/>
+        </div>
       )
     }
   }
