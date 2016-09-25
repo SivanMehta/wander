@@ -39,38 +39,45 @@ export default class App extends React.Component {
       return (
         <div>
           <input className="form-control" type="text" placeholder="Username" ref="username" />
+          <input className="form-control" type="password" placeholder="Password"></input>
         </div>
       )
     } else {
       return(
         <div className='has-warning'>
           <input className="form-control form-control-warning" type="text" placeholder="Username" ref="username"/>
+          <input className="form-control" type="password" placeholder="Password"></input>
           <div className="form-control-feedback">{ this.state.error }</div>
         </div>
       )
     }
   }
 
-  render() {
+  renderContent() {
     if(this.state.page == 'login') {
       return(
-          <div className = 'container'>
+          <div>
             <h1>Welcome to Wander! </h1>
-            { this.renderUsernameField() }
-            <br />
-            <button type = "button"
-                    className = "btn btn-secondary"
-                    id = "tbutton"
-                    onClick = { this.connect }>
-                      Connect As Tourist <i className="fa fa-pied-piper-alt"></i>
-            </button>
-            <br />
-            <button type = "button"
-                    className = "btn btn-secondary"
-                    id = "gbutton"
-                    onClick = { this.connect }>
-                      Connect As Guide <i className="fa fa-map-o"></i>
-            </button>
+            <div className = 'col-sm-12 col-md-6'>
+              <img src="img/image.png"></img>
+            </div>
+            <div className = 'col-sm-12 col-md-6'>
+              { this.renderUsernameField() }
+              <br />
+              <button type = "button"
+                      className = "btn btn-secondary"
+                      id = "tbutton"
+                      onClick = { this.connect }>
+                        Connect As Tourist <i className="fa fa-pied-piper-alt"></i>
+              </button>
+              <br />
+              <button type = "button"
+                      className = "btn btn-secondary"
+                      id = "gbutton"
+                      onClick = { this.connect }>
+                        Connect As Guide <i className="fa fa-map-o"></i>
+              </button>
+            </div>
           </div>
         )
     } else if (this.state.page == 'loading') {
@@ -80,13 +87,34 @@ export default class App extends React.Component {
         </center>
       )
     } else {
-      return (
+      return(
         <Users role = { this.state.role }
                view = { 'users' }
                position = { this.state.position }
                username = { this.state.username } />
       )
     }
+  }
+
+  homepage(event) {
+    this.setState({page: 'users'}) // Trying to link back to page of users
+  }
+
+  render() {
+    return(
+        <div>
+          <div className="navbar navbar-default">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <p id="logo">Wander</p>
+              </div>
+            </div>
+          </div>
+          <div className = 'container'>
+            { this.renderContent() }
+          </div>
+        </div>
+      )
   }
 }
 

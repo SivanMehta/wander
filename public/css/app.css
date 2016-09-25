@@ -11,3 +11,68 @@
 img.card-img-top {
   max-width: 100%
 }
+
+#logo{
+  font-family: "Brush Script MT", italic;
+  font-size: 50px;
+  font-style: normal;
+  font-variant: normal;
+  color: #ffffff;
+  text-align: center;
+}
+
+.navbar{
+  background-color: #009900;
+  margin-bottom: 20px;
+}
+
+#home_btn{
+  margin-top: 10px;
+}
+
+#home_img{
+  width: 75%;
+  height: 75%;
+  padding-bottom: 15px;
+}
+
+#tbutton{
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: #0982FF;
+  border-color: #0982FF;
+  color: white;
+  font-family: "Avenir Next";
+}
+
+#gbutton{
+  background-color: #FF8040;
+  border-color: #FF8040;
+  color: white;
+  font-family: "Avenir Next";  
+}
+
+#username_input{
+  margin-bottom: 10px;
+}
+
+#pw_input{
+  margin-bottom: 10px;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+.btn-block + .btn-block {
+  margin-top: 5px;
+}
+
+h2 #title{
+  text-align: center;
+}
+
+h1, h2, h3, h4{
+  margin-bottom: 20px;
+  font-family: "Avenir Next";
+}
