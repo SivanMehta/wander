@@ -23,7 +23,7 @@ export default class Trip extends React.Component {
 
   renderButtons() {
     var buttons = []
-    const ratings = ['Supoptimal', 'Meh', 'Fan-Freaking-tastic']
+    const ratings = ['Sub-optimal', 'Meh', 'Fan-Freaking-tastic']
     ratings.forEach((rating) => {
       buttons.push(
         <button type = 'button'

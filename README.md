@@ -7,10 +7,10 @@
 
 ## Features for the Future?
 
-- Google Map landing page showing local tour guides' locations / distances
+- Map-based landing page showing local tour guides' locations / distances
 - Meaningfully multifaceted rating system (rather than just 1-5 stars)
 - Login with Facebook
-- Pay with Venmo
-- Desktop Notifications on request
+- Pay with Venmo / Square
+- Notifications for requests
 - Prevent interference in requests among groups
-- API - driven interface
+- API - defined behavior to make iOS / Android native apps easy to build (in theory)
