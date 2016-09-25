@@ -41,7 +41,7 @@ export default class ListView extends React.Component {
     var result = []
     this.props.users ? this.props.users.forEach((user) => {
       result.push(
-        <div className="card">
+        <div className="card" key = { user.id }>
           <img className="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=600&h=200" alt="Card image cap" />
           <div className="card-block">
             <h4 className="card-title">{user.username}</h4>
