@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Wander</title>
+
         <link rel="icon" href="/icon.png">
         <!-- JQuery and Bootstrap-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
@@ -13,6 +14,13 @@
         <!-- Font Awesome -->
         <script src="https://use.fontawesome.com/f8ebc31515.js"></script>
 
+        <!-- Nav Bar Header -->
+      <script type="text/jsx" src="navbarLink.jsx"></script>
+      <script type="text/jsx" src="navbarItem.jsx"></script>
+      <script type="text/jsx" src="navbar.jsx"></script>
+      <script type="text/javascript" src="data.js"></script>
+
+
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="/css/app.css">
     </head>
@@ -21,6 +29,14 @@
         <div id = "app">
         </div>
         
+        <nav></nav>
+        <script type="text/jsx">
+          /** @jsx React.DOM */
+          window.onload = React.renderComponent(
+            <NavBar items={data} />,
+            document.querySelector('nav')
+          );
+        </script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="/dist/build/bundle.js"></script>
     </body>
