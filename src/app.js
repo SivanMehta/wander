@@ -6,13 +6,21 @@ export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      page: 'login'
+      page: 'login',
+      error: false
     }
     this.connect = this.connect.bind(this);
   }
 
   connect(event) {
-    this.setState({page: 'loading'})
+    // validate username
+    if(this.refs.username.value.length < 3) {
+      this.setState({error: 'Username must be at least 3 characters'})
+      return
+    }
+
+    // load the page
+    this.setState({page: 'loading', username: this.refs.username.value})
     const role = event.target.id == 'tbutton' ? 'tourist' : 'guide'
     navigator.geolocation.getCurrentPosition((position) => {
       this.setState({
@@ -24,46 +32,66 @@ export default class App extends React.Component {
         }
       })
     })
+  }
 
+  renderUsernameField() {
+    if(!this.state.error) {
+      return (
+        <div>
+          <input className="form-control" type="text" placeholder="Username" ref="username" />
+          <input className="form-control" type="password" placeholder="Password"></input>
+        </div>
+      )
+    } else {
+      return(
+        <div className='has-warning'>
+          <input className="form-control form-control-warning" type="text" placeholder="Username" ref="username"/>
+          <input className="form-control" type="password" placeholder="Password"></input>
+          <div className="form-control-feedback">{ this.state.error }</div>
+        </div>
+      )
+    }
   }
 
   renderContent() {
     if(this.state.page == 'login') {
       return(
           <div>
-            <h2 id="title">Welcome to Wander! </h2>
+            <h1>Welcome to Wander! </h1>
             <div className = 'col-sm-12 col-md-6'>
-              <img src="img/image.png" id="home_img"></img>
+              <img src="img/image.png"></img>
             </div>
             <div className = 'col-sm-12 col-md-6'>
-              <form>
-                <div className="form-group row">
-                    <i className="fa fa-user" aria-hidden="true"></i>
-                    <input type="text" id = "username_input" className="form-control" placeholder="Username"></input>
-                    <i className="fa fa-key" aria-hidden="true"></i>
-                    <input type="password" id = "pw_input" className="form-control" placeholder="Password"></input>
-                </div>
-              </form>
-              <div className = 'col-sm-12 col-md-6'>
-                <button type="button btn-block" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Log-in as Tourist</button>
-              </div>
-              <div className = 'col-sm-12 col-md-6'>
-                <button type="button btn-block" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Log-in as Guide</button>
-              </div>
+              { this.renderUsernameField() }
+              <br />
+              <button type = "button"
+                      className = "btn btn-secondary"
+                      id = "tbutton"
+                      onClick = { this.connect }>
+                        Connect As Tourist <i className="fa fa-pied-piper-alt"></i>
+              </button>
+              <br />
+              <button type = "button"
+                      className = "btn btn-secondary"
+                      id = "gbutton"
+                      onClick = { this.connect }>
+                        Connect As Guide <i className="fa fa-map-o"></i>
+              </button>
             </div>
           </div>
         )
     } else if (this.state.page == 'loading') {
       return(
         <center>
-          <i className="fa fa-repeat" aria-hidden="true"></i>
+          <i className="fa fa-cog fa-spin fa-3x fa-fw"></i>
         </center>
       )
     } else {
       return(
         <Users role = { this.state.role }
-                 view = { 'users' }
-                 position = { this.state.position }/>
+               view = { 'users' }
+               position = { this.state.position }
+               username = { this.state.username } />
       )
     }
   }

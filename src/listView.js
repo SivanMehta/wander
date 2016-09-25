@@ -6,19 +6,15 @@ export default class ListView extends React.Component {
     super(props)
   }
 
-  renderButton(role, id) {
+  renderButton(id) {
     id = id.split('#')[1]
-    if(this.props.role + "s" != role) {
-      return(
-        <div className='card-block'>
-          <a href="#" className="btn btn-success" onClick = { (e) => { this.connectToUser(id) } }>
-            Start a Tour!
-          </a>
-        </div>
-      )
-    } else {
-      return <span></span>
-    }
+    return(
+      <div className='card-block'>
+        <a href="#" className="btn btn-success" onClick = { (e) => { this.connectToUser(id) } }>
+          Start a Tour!
+        </a>
+      </div>
+    )
   }
 
   connectToUser(id) {
@@ -29,7 +25,10 @@ export default class ListView extends React.Component {
       datatype: 'json',
       data: JSON.stringify({
         to: id,
-        from: this.props.id
+        from: {
+          id: this.props.id,
+          username: this.props.username
+        }
       }),
       success: (data, status) => {
         console.log('sent message to ' + id)
@@ -37,17 +36,17 @@ export default class ListView extends React.Component {
     })
   }
 
-  renderUsers(role) {
+  renderUsers() {
     var result = []
-    this.props.users[role] ? this.props.users[role].forEach((user) => {
+    this.props.users ? this.props.users.forEach((user) => {
       result.push(
-        <div className="card">
+        <div className="card" key = { user.id }>
           <img className="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=600&h=200" alt="Card image cap" />
           <div className="card-block">
-            <h4 className="card-title">Joe Schmoe</h4>
+            <h4 className="card-title">{user.username}</h4>
             <p className="card-text">{user.address}</p>
           </div>
-          { this.renderButton(role, user.id) }
+          { this.renderButton(user.id) }
         </div>
       )
     }) : []
@@ -56,18 +55,15 @@ export default class ListView extends React.Component {
   }
 
   render() {
-    const tourists = this.renderUsers('tourists')
-    const guides = this.renderUsers('guides')
+    const users = this.renderUsers()
+    const role = this.props.role[0].toUpperCase() + this.props.role.substr(1)
+
 
     return(
       <div className = 'row'>
         <div className = 'col-sm-12 col-md-6'>
-          <h2>Tourists:</h2>
-            { tourists.length != 0 ? tourists : 'There are no tourists currently connected'}
-        </div>
-        <div className = 'col-sm-12 col-md-6'>
-          <h2>Guides:</h2>
-            { guides.length != 0 ? guides : 'There are no guides currently connected'}
+          <h1>Available { role }:</h1>
+          { users.length != 0 ? users : 'There are no ' + this.props.role + ' currently connected'}
         </div>
       </div>
 

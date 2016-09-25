@@ -2,14 +2,12 @@
 
 ## Implemented Features
 
-Land on Page and indicate your role (guide / tourist)
+- Land on Page and indicate your role (guide / tourist)
+- See all people currently online that you can connect with
 
-## Features to Come
+## Features for the Future
 
 - Google Map landing page showing local tour guides' locations / distances
-- Ability to make a request with the following attributes:
-  - Title
-  - Description
-  - Time Estimate
-- Local Tour Guides can evaluate the request and either accept or reject
-- Ability to rate / comment on tour once it is over.
+- Multifaceted rating system (rather than just 1-5 stars)
+- Login with Facebook
+- Pay with Venmo

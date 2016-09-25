@@ -1,8 +1,8 @@
-const async = require('async');
-const path = require('path');
-const LRU = require('lru-cache')
-
+const async = require('async')
+const path = require('path')
+const words = require('random-words')
 var geocoder = require('geocoder');
+
 
 exports.init = (app) => {
     /*
@@ -11,17 +11,14 @@ exports.init = (app) => {
     */
     var users = {
         tourist: {},
-        guide: {},
+        guide: {}
     }
 
     /*
       Similar to above, this would have to eventually be stored
       in a more reliably consistent data store
     */
-    var tripRequests = LRU({
-      maxAge: 1000 * 60 * 5 // tripRequests only are 'remembered for 5 minutes'
-    })
-
+    var trips = {}
 
     const PORT = process.env.PORT || 5000
     app.set('port', PORT);
@@ -46,26 +43,23 @@ exports.init = (app) => {
     }
 
     io.on('connection', (socket) => {
-        socket.role = socket.handshake.query.role
-        socket.lat = socket.handshake.query.lat
-        socket.long = socket.handshake.query.long
-
-        // Reverse Geocoding 
-        var lat = socket.lat
-        var lng = socket.long
+        // Reverse Geocoding
+        var lat = socket.handshake.query.lat
+        var lng = socket.handshake.query.long
         geocoder.reverseGeocode(lat, lng, function ( err, data ) {
           // 'persist the user'
-          users[socket.role][socket.id] = {
-              lat: socket.lat,
-              lng: socket.long,
+          users[socket.handshake.query.role][socket.handshake.query.username] = {
+              lat: socket.handshake.query.lat,
+              lng: socket.handshake.query.long,
               address: data.results[1].formatted_address,
-              id: socket.id
+              id: socket.id,
+              username: socket.handshake.query.username
           }
           emitUserInfo()
         });
 
         socket.on('disconnect', () => {
-            delete users[socket.role][socket.id];
+            delete users[socket.handshake.query.role][socket.handshake.query.username];
             emitUserInfo()
         })
     })
@@ -78,38 +72,44 @@ exports.init = (app) => {
       // ping recipient
       io.to("/#" + req.body.to).emit('make request', req.body.from)
 
-      // 'persist' the request such that one user can only request
-      // one at a time
-      tripRequests.set(req.body.from, {
-        user: req.body.to,
-        status: 'pending'
-      })
-
       // confirm message went through
       res.send(req.params.to)
     })
 
-    app.patch('/api/request', (req, res) => {
-      // ping sender
-      io.to('/#' + req.body.from).emit('return request', {
-        to: req.body.to,
-        status: req.body.response
+    app.post('/api/trip/create', (req, res) => {
+      // deny request
+      if(!req.body.response) {
+        io.to('/#' + req.body.id).emit('deny trip', {
+          from: req.body.from
+        })
+        return
+      }
+
+      // accept trip
+      const tripID = words({ exactly: 5, join: '-' })
+      // 'create' the trip, in memory for now
+      trips[tripID] = [req.body.to, req.body.id]
+
+      trips[tripID].forEach((user) => {
+        io.to('/#' + user).emit('start trip', {
+          tripID: tripID,
+          users: req.body.usernames
+        })
       })
 
-      tripRequests.set(req.body.from, {
-        user: req.body.to,
-        status: req.body.content
-      })
+      res.send(true)
     })
 
-    app.get('/debug/tripRequests', (req, res) => {
-      res.send('Total Requests: ' + tripRequests.length);
-    })
+    app.post('/api/trip/cancel', (req, res) => {
+      // tell users to cut it out
+      trips[req.body.tripID] ? trips[req.body.tripID].forEach((user) => {
+        io.to('/#' + user).emit('end trip', {})
+      }) : ''
 
-    app.get('/debug/tripRequests/empty', (req, res) => {
-      tripRequests.reset()
-      res.send('Total Requests: ' + tripRequests.length);
-    })
+      // forget that trip ever happened
+      delete trips[req.body.tripID]
+      res.send(true)
+    });
 
     http.listen(PORT, () => {
         console.log("Server started on port " + PORT)
