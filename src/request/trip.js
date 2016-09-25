@@ -23,14 +23,16 @@ export default class Trip extends React.Component {
 
   renderButtons() {
     var buttons = []
-    const ratings = ['Sub-optimal', 'Meh', 'Fan-Freaking-tastic']
+    const ratings = ['smile', 'meh', 'frown']
     ratings.forEach((rating) => {
       buttons.push(
         <button type = 'button'
                 className='btn btn-secondary'
                 key = {rating}
                 onClick = { (e) => { this.cancel() } }
-                >{rating}</button>
+                >
+                <i className = { 'fa fa-' + rating + '-o' } ></i>
+        </button>
       )
     })
 
