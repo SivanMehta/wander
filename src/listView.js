@@ -12,7 +12,7 @@ export default class ListView extends React.Component {
       return(
         <div className='card-block'>
           <a href="#" className="btn btn-success" onClick = { (e) => { this.connectToUser(id) } }>
-            Connect!
+            Start a Tour!
           </a>
         </div>
       )
@@ -62,11 +62,11 @@ export default class ListView extends React.Component {
     return(
       <div className = 'row'>
         <div className = 'col-sm-12 col-md-6'>
-          <h1>Tourists:</h1>
+          <h2>Tourists:</h2>
             { tourists.length != 0 ? tourists : 'There are no tourists currently connected'}
         </div>
         <div className = 'col-sm-12 col-md-6'>
-          <h1>Guides:</h1>
+          <h2>Guides:</h2>
             { guides.length != 0 ? guides : 'There are no guides currently connected'}
         </div>
       </div>
