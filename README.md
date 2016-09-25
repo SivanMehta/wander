@@ -1,4 +1,4 @@
-![Wander](https://raw.githubusercontent.com/SivanMehta/wander/master/public/logo.png)
+![Wander](./public/wander_logo.png)
 
 ## Implemented Features
 
