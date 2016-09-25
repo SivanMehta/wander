@@ -11,11 +11,10 @@ export default class ListView extends React.Component {
     return(
       <div className='card-block'>
         <a href="#" className="btn btn-success" onClick = { (e) => { this.connectToUser(id) } }>
-          Connect!
+          Start a Tour!
         </a>
       </div>
     )
-
   }
 
   connectToUser(id) {
@@ -64,7 +63,7 @@ export default class ListView extends React.Component {
       <div className = 'row'>
         <div className = 'col-sm-12 col-md-6'>
           <h1>Available { role }:</h1>
-            { users.length != 0 ? users : 'There are no ' + this.props.role + ' currently connected'}
+          { users.length != 0 ? users : 'There are no ' + this.props.role + ' currently connected'}
         </div>
       </div>
 
