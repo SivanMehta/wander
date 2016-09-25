@@ -1,8 +1,8 @@
 const async = require('async')
 const path = require('path')
-// const LRU = require('lru-cache')
-
+const words = require('random-words')
 var geocoder = require('geocoder');
+
 
 exports.init = (app) => {
     /*
@@ -11,17 +11,14 @@ exports.init = (app) => {
     */
     var users = {
         tourist: {},
-        guide: {},
+        guide: {}
     }
 
     /*
       Similar to above, this would have to eventually be stored
       in a more reliably consistent data store
     */
-    // var tripRequests = LRU({
-    //   maxAge: 1000 * 60 * 5 // tripRequests only are 'remembered for 5 minutes'
-    // })
-
+    var trips = {}
 
     const PORT = process.env.PORT || 5000
     app.set('port', PORT);
@@ -75,41 +72,43 @@ exports.init = (app) => {
       // ping recipient
       io.to("/#" + req.body.to).emit('make request', req.body.from)
 
-      // 'persist' the request such that one user can only request
-      // one at a time
-      // tripRequests.set(req.body.from, {
-      //   user: req.body.to,
-      //   status: 'pending'
-      // })
-
       // confirm message went through
       res.send(req.params.to)
     })
 
     app.patch('/api/request', (req, res) => {
       // ping sender
+      const tripID = words({ exactly: 5, join: '-' })
+      trips[tripID] = [req.body.to, req.body.id]
+
+      trips[tripID].forEach((user) => {
+        io.to('/#' + user).emit('start trip', {
+          tripID: tripID,
+          users: trips[tripID]
+        })
+      })
       io.to('/#' + req.body.id).emit('return request', {
         to: req.body.to,
         status: req.body.response,
-        username: req.body.username
+        username: req.body.username,
+        tripID: tripID
       })
 
-      // tripRequests.set(req.body.from, {
-      //   user: req.body.to,
-      //   status: req.body.content
-      // })
+      // 'create' the trip, in memory for now
 
       res.send(true)
     })
 
-    // app.get('/debug/tripRequests', (req, res) => {
-    //   res.send('Total Requests: ' + tripRequests.length);
-    // })
-    //
-    // app.get('/debug/tripRequests/empty', (req, res) => {
-    //   tripRequests.reset()
-    //   res.send('Total Requests: ' + tripRequests.length);
-    // })
+    app.post('/api/trip/cancel', (req, res) => {
+      // tell users to cut it out
+      trips[req.body.tripID] ? trips[req.body.tripID].forEach((user) => {
+        io.to('/#' + user).emit('end trip', {})
+      }) : ''
+
+      // forget that trip ever happened
+      delete trips[req.body.tripID]
+      res.send(true)
+    });
 
     http.listen(PORT, () => {
         console.log("Server started on port " + PORT)

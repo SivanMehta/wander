@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import ListView from './listView'
 import Alert from './request/alert'
 import Response from './request/response'
+import Trip from './request/trip'
 
 export default class Users extends React.Component {
   constructor(props) {
@@ -10,7 +11,9 @@ export default class Users extends React.Component {
 
     this.state = {
       users: {},
-      role: this.props.role
+      role: this.props.role,
+      view: 'list',
+      trip: {}
     }
 
     this.socket = io('', {query: 'role='+this.props.role +
@@ -36,13 +39,45 @@ export default class Users extends React.Component {
         show: true
       })
 
-      // presumably change the view, but that is for a later implementation
+      if(data.status) {
+        this.setState({
+          view: 'trip',
+          trip: {
+            user: this.props.username,
+            counterpart: data.username,
+            tripID: data.tripID
+          }
+        })
+      }
+    })
+
+    this.socket.on('end trip', (data) => {
+      this.setState({
+        view: 'list',
+        trip: {}
+      })
     })
 
   }
 
+  renderView() {
+    if(this.state.view == 'list') {
+      const counterparts = { guide: 'tourists', tourist: 'guides' }[this.state.role]
+
+      return (
+        <ListView users = { this.state.users[counterparts] }
+          role = { counterparts }
+          id = { this.socket.id }
+          username = { this.props.username } />
+      )
+    } else if (this.state.view == 'trip') {
+      return <Trip user = { this.state.trip.user }
+                   counterpart = { this.state.trip.counterpart }
+                   tripID = { this.state.trip.tripID } />
+    }
+  }
+
   render() {
-    const counterparts = { guide: 'tourists', tourist: 'guides' }[this.state.role]
 
     return(
       <div className = 'container'>
@@ -50,10 +85,7 @@ export default class Users extends React.Component {
                ref = 'alert'
                username = { this.props.username } />
         <Response ref = 'response' />
-        <ListView users = { this.state.users[counterparts] }
-                  role = { counterparts }
-                  id = { this.socket.id }
-                  username = { this.props.username } />
+        { this.renderView() }
       </div>
     )
   }
