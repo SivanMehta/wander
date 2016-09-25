@@ -31,25 +31,23 @@ export default class Users extends React.Component {
       })
     })
 
-    this.socket.on('return request', (data) => {
+    this.socket.on('deny trip', (data) => {
       this.refs.response.setState({
-        status: data.status,
-        to: data.to,
-        username: data.username,
-        show: true
+        show: true,
+        username: data.from,
+        status: false
       })
-
-      if(data.status) {
-        this.setState({
-          view: 'trip',
-          trip: {
-            user: this.props.username,
-            counterpart: data.username,
-            tripID: data.tripID
-          }
-        })
-      }
     })
+
+    this.socket.on('start trip', (data) => {
+      this.setState({
+        view: 'trip',
+        trip: {
+          tripID: data.tripID,
+          users: data.users
+        }
+      })
+    });
 
     this.socket.on('end trip', (data) => {
       this.setState({
@@ -71,8 +69,7 @@ export default class Users extends React.Component {
           username = { this.props.username } />
       )
     } else if (this.state.view == 'trip') {
-      return <Trip user = { this.state.trip.user }
-                   counterpart = { this.state.trip.counterpart }
+      return <Trip users = { this.state.trip.users }
                    tripID = { this.state.trip.tripID } />
     }
   }
