@@ -41,7 +41,7 @@ export default class App extends React.Component {
                     <i className="fa fa-user" aria-hidden="true"></i>
                     <input type="text" id = "username_input" className="form-control" placeholder="Username"></input>
                     <i className="fa fa-key" aria-hidden="true"></i>
-                    <input type="text" id = "pw_input" className="form-control" placeholder="Password"></input>
+                    <input type="password" id = "pw_input" className="form-control" placeholder="Password"></input>
                 </div>
               </form>
               <div className = 'col-sm-12 col-md-6'>
