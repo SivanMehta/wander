@@ -43,10 +43,24 @@ export default class App extends React.Component {
               </div>
             </div>
             <h2 id="title">Welcome to Wander! </h2>
-            <img src="img/image.png" id="home_img"></img>
-            <div className="btn-group" role = "group">
-              <button type="button" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Tourist</button>
-              <button type="button" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Guide</button>
+            <div className = 'col-sm-12 col-md-6'>
+              <img src="img/image.png" id="home_img"></img>
+            </div>
+            <div className = 'col-sm-12 col-md-6'>
+              <form>
+                <div className="form-group row">
+                    <i className="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" id = "username_input" className="form-control" placeholder="Username"></input>
+                    <i className="fa fa-key" aria-hidden="true"></i>
+                    <input type="text" id = "pw_input" className="form-control" placeholder="Password"></input>
+                </div>
+              </form>
+                <div className = 'col-sm-12 col-md-6'>
+                  <button type="button btn-block" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Log-in as Tourist</button>
+                </div>
+                <div className = 'col-sm-12 col-md-6'>
+                  <button type="button btn-block" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Log-in as Guide</button>
+                </div>
             </div>
           </div>
         )
