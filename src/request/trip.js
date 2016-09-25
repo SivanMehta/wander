@@ -21,11 +21,30 @@ export default class Trip extends React.Component {
     })
   }
 
+  renderButtons() {
+    var buttons = []
+    const ratings = ['Supoptimal', 'Meh', 'Fan-Freaking-tastic']
+    ratings.forEach((rating) => {
+      buttons.push(
+        <button type = 'button'
+                className='btn btn-secondary'
+                key = {rating}
+                onClick = { (e) => { this.cancel() } }
+                >{rating}</button>
+      )
+    })
+
+    return buttons
+  }
+
   render() {
     return(
       <div className = 'jumbotron'>
         <p>Trip between { this.props.users.join(' and ') }</p>
-        <button type="button" className="btn btn-danger" onClick = { () => { this.cancel() } } >Cancel Trip</button>
+        <p>Rate your trip</p>
+        <div className='btn-group'>
+          { this.renderButtons() }
+        </div>
       </div>
     )
   }

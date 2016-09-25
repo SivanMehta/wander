@@ -82,7 +82,7 @@ exports.init = (app) => {
         io.to('/#' + req.body.id).emit('deny trip', {
           from: req.body.from
         })
-        return;
+        return
       }
 
       // accept trip
