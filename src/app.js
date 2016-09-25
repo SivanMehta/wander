@@ -31,18 +31,34 @@ export default class App extends React.Component {
     if(this.state.page == 'login') {
       return(
           <div className = 'container'>
+            <div className="navbar navbar-default">
+              <div className="container-fluid">
+                <div className="navbar-header">
+                  <a className="navbar-brand" href="#">Wander</a>
+                </div>
+              </div>
+            </div>
             <h1>Connect As: </h1>
             <div className="btn-group" role = "group">
-            <button type="button" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Tourist</button>
-            <button type="button" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Guide</button>
+              <button type="button" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Tourist</button>
+              <button type="button" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Guide</button>
             </div>
           </div>
         )
     } else if (this.state.page == 'loading') {
       return(
-        <center>
-          <i className="fa fa-repeat" aria-hidden="true"></i>
-        </center>
+        <div className = 'container'>
+            <div className="navbar navbar-default">
+              <div className="container-fluid">
+                <div className="navbar-header">
+                  <a className="navbar-brand" href="#">Wander</a>
+                </div>
+              </div>
+            </div>
+          <center>
+            <i className="fa fa-repeat" aria-hidden="true"></i>
+          </center>
+        </div>
       )
     } else {
       return (

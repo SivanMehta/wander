@@ -42,10 +42,14 @@ export default class ListView extends React.Component {
     this.props.users[role] ? this.props.users[role].forEach((user) => {
       result.push(
         <div className="card">
-          <img className="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=600&h=200" alt="Card image cap" />
-          <div className="card-block">
-            <h4 className="card-title">Joe Schmoe</h4>
-            <p className="card-text">{user.address}</p>
+          <div className="col-md-4">
+            <img className="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=600&h=200" alt="Card image cap" />
+          </div>
+          <div className="col-md-8">
+            <div className="card-block">
+              <h4 className="card-title">Joe Schmoe</h4>
+              <p className="card-text">{user.address}</p>
+            </div>
           </div>
           { this.renderButton(role, user.id) }
         </div>

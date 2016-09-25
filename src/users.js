@@ -42,6 +42,13 @@ export default class Users extends React.Component {
   render() {
     return(
       <div className = 'container'>
+        <div className="navbar navbar-default">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <a className="navbar-brand" href="#">Wander</a>
+            </div>
+          </div>
+        </div>
         <Alert id = { this.socket.id } ref = 'alert' />
         <Response ref = 'response' />
         <ListView users = { this.state.users }
