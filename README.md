@@ -5,9 +5,12 @@
 - Land on Page and indicate your role (guide / tourist)
 - See all people currently online that you can connect with
 
-## Features for the Future
+## Features for the Future?
 
 - Google Map landing page showing local tour guides' locations / distances
-- Multifaceted rating system (rather than just 1-5 stars)
+- Meaningfully multifaceted rating system (rather than just 1-5 stars)
 - Login with Facebook
 - Pay with Venmo
+- Desktop Notifications on request
+- Prevent interference in requests among groups
+- API - driven interface
