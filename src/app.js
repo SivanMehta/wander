@@ -27,14 +27,29 @@ export default class App extends React.Component {
 
   }
 
-  render() {
+  renderContent() {
     if(this.state.page == 'login') {
       return(
-          <div className = 'container'>
-            <h1>Connect As: </h1>
-            <div className="btn-group" role = "group">
-            <button type="button" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Tourist</button>
-            <button type="button" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Guide</button>
+          <div>
+            <h2 id="title">Welcome to Wander! </h2>
+            <div className = 'col-sm-12 col-md-6'>
+              <img src="img/image.png" id="home_img"></img>
+            </div>
+            <div className = 'col-sm-12 col-md-6'>
+              <form>
+                <div className="form-group row">
+                    <i className="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" id = "username_input" className="form-control" placeholder="Username"></input>
+                    <i className="fa fa-key" aria-hidden="true"></i>
+                    <input type="password" id = "pw_input" className="form-control" placeholder="Password"></input>
+                </div>
+              </form>
+              <div className = 'col-sm-12 col-md-6'>
+                <button type="button btn-block" className = "btn btn-secondary" id = "tbutton" onClick = { this.connect }>Log-in as Tourist</button>
+              </div>
+              <div className = 'col-sm-12 col-md-6'>
+                <button type="button btn-block" className = "btn btn-secondary" id = "gbutton" onClick = { this.connect }>Log-in as Guide</button>
+              </div>
             </div>
           </div>
         )
@@ -45,12 +60,33 @@ export default class App extends React.Component {
         </center>
       )
     } else {
-      return (
+      return(
         <Users role = { this.state.role }
-               view = { 'users' }
-               position = { this.state.position }/>
+                 view = { 'users' }
+                 position = { this.state.position }/>
       )
     }
+  }
+
+  homepage(event) {
+    this.setState({page: 'users'}) // Trying to link back to page of users
+  }
+
+  render() {
+    return(
+        <div>
+          <div className="navbar navbar-default">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <p id="logo">Wander</p>
+              </div>
+            </div>
+          </div>
+          <div className = 'container'>
+            { this.renderContent() }
+          </div>
+        </div>
+      )
   }
 }
 
