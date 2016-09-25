@@ -38,13 +38,13 @@ export default class App extends React.Component {
     if(!this.state.error) {
       return (
         <div>
-          <input className="form-control" type="text" placeholder="Enter Your Name" ref="username" id='username'/>
+          <input className="form-control" type="text" placeholder="Username" ref="username" />
         </div>
       )
     } else {
       return(
         <div className='has-warning'>
-          <input className="form-control form-control-warning" type="text" placeholder="Enter Your Name" ref="username" id='username'/>
+          <input className="form-control form-control-warning" type="text" placeholder="Username" ref="username"/>
           <div className="form-control-feedback">{ this.state.error }</div>
         </div>
       )
