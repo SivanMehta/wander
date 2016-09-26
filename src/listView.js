@@ -60,11 +60,9 @@ export default class ListView extends React.Component {
 
 
     return(
-      <div className = 'row'>
-        <div className = 'col-sm-12 col-md-6'>
-          <h1>Available { role }:</h1>
-          { users.length != 0 ? users : 'There are no ' + this.props.role + ' currently connected'}
-        </div>
+      <div className = 'jumbotron'>
+        <h1>Available { role }:</h1>
+        <h9>{ users.length != 0 ? users : 'There are no ' + this.props.role + ' currently connected'}</h9>
       </div>
 
     )
