@@ -75,6 +75,10 @@ input{
   text-align: center;
 }
 
+#users_unavailable{
+  background-color: #ececec;
+}
+
 h1, h2, h3, h4{
   font-family: "Avenir Next";
   margin-bottom: 20px;

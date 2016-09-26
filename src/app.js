@@ -13,6 +13,10 @@ export default class App extends React.Component {
   }
 
   connect(event) {
+
+    // Change background image to white background
+    // document.body.style.backgroundColor = "white";
+
     // validate username
     if(this.refs.username.value.length < 3) {
       this.setState({error: 'Username must be at least 3 characters'})
@@ -94,7 +98,7 @@ export default class App extends React.Component {
 
   render() {
     return(
-        <div>
+        <div id="full">
           <div className="navbar navbar-default">
             <div className="container-fluid">
               <div className="navbar-header">
