@@ -56,12 +56,8 @@ export default class App extends React.Component {
   renderContent() {
     if(this.state.page == 'login') {
       return(
-          <div>
-            <h1>Welcome to Wander! </h1>
-            <div className = 'col-sm-12 col-md-6'>
-              <img src="img/image.png"></img>
-            </div>
-            <div className = 'col-sm-12 col-md-6'>
+          <div id="login">
+            <div className = 'col-md-6 offset-md-3'>
               { this.renderUsernameField() }
               <br />
               <button type = "button"
@@ -96,17 +92,13 @@ export default class App extends React.Component {
     }
   }
 
-  homepage(event) {
-    this.setState({page: 'users'}) // Trying to link back to page of users
-  }
-
   render() {
     return(
         <div>
           <div className="navbar navbar-default">
             <div className="container-fluid">
               <div className="navbar-header">
-                <p id="logo">Wander</p>
+                <img id="logo" src="img/wander_logo.png"></img>
               </div>
             </div>
           </div>

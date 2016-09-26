@@ -4,22 +4,37 @@
     margin-top: 25px;
 }
 
+body{
+  font-family: "Avenir Next";
+  background-image: url('../img/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* For width 400px and larger: */
+@media only screen and (max-width: 1000px) {
+    body{ 
+        background-image: url('../img/background_sm.jpg'); 
+    }
+}
+
 img.card-img-top {
   max-width: 100%
 }
 
-#logo {
-  font-family: "Brush Script MT", italic;
-  font-size: 50px;
-  font-style: normal;
-  font-variant: normal;
-  color: #ffffff;
-  text-align: center;
+img {
+  display: block;
+  margin: auto;
+}
+
+input{
+  margin-bottom: 10px;
 }
 
 .navbar {
+  max-height: 70px;
   background-color: #009900;
-  margin-bottom: 20px;
+  margin-bottom: 70px;
 }
 
 #home_btn{
@@ -33,6 +48,7 @@ img.card-img-top {
 }
 
 #tbutton {
+  width: 100%;
   margin-right: 10px;
   margin-bottom: 10px;
   background-color: #0982FF;
@@ -41,6 +57,7 @@ img.card-img-top {
 }
 
 #gbutton {
+  width: 100%;
   background-color: #FF8040;
   border-color: #FF8040;
   color: white;
@@ -59,5 +76,6 @@ img.card-img-top {
 }
 
 h1, h2, h3, h4{
+  font-family: "Avenir Next";
   margin-bottom: 20px;
 }
