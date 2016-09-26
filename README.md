@@ -1,4 +1,4 @@
-![Wander](./public/img/wander_logo.png)
+![Wander](./public/img/wander_green_logo.png)
 
 ## Implemented Features
 
