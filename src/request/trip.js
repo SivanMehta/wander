@@ -42,8 +42,8 @@ export default class Trip extends React.Component {
   render() {
     return(
       <div className = 'jumbotron'>
-        <p>Trip between { this.props.users.join(' and ') }</p>
-        <p>Rate your trip</p>
+        <h4><strong>Trip between:</strong> { this.props.users.join(' and ') } </h4>
+        <h5>Rate your trip: </h5>
         <div className='btn-group'>
           { this.renderButtons() }
         </div>
