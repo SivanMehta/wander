@@ -28,3 +28,7 @@ For wireframing iterations, please view the following sharable links:
 Iteration 1 Wireframe: http://adobe.ly/2daX6UW
 
 Iteration 2 Wireframe: http://adobe.ly/2daX6UW
+
+To view the movies and gif demos, along with the original files:
+
+https://drive.google.com/drive/folders/0B5InXd2CuDuSdEExNWVteENVMmc?usp=sharing
