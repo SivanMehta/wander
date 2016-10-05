@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "watch": "rm -rf public/dist/build/ && webpack --progress --watch",
-    "deploy": "webpack --progress && node index.js"
+    "deploy": "webpack --progress && rm public/dist/build/bundle.js.map && node index.js"
   },
   "repository": {
     "type": "git",
