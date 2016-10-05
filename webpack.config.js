@@ -30,7 +30,12 @@ module.exports = [
     new webpack.ProvidePlugin({
         "react": "React",
     }),
-    new ExtractTextPlugin(path.join(dist, 'app.css'))
+    new ExtractTextPlugin(path.join(dist, 'app.css')),
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      })
   ],
 
   module: {
