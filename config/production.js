@@ -9,7 +9,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 //
 
 exports.init = (dirname) => {
-  const env = 'development';
   const LANG = process.env.LANG || 'en-US';
   const dist = path.join(dirname, 'public', 'dist')
 
@@ -22,11 +21,6 @@ exports.init = (dirname) => {
     },
     plugins: [
       new webpack.optimize.DedupePlugin(),
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify(env)
-        }
-      }),
       new webpack.ProvidePlugin({
           "react": "React",
       }),
@@ -51,9 +45,6 @@ exports.init = (dirname) => {
               require.resolve('babel-preset-react')
             ]
           }
-        }, {
-          test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'sass-loader')
         }
       ]}
     }
